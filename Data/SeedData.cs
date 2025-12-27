@@ -649,6 +649,242 @@ public static class SeedData
                     Category = "Desserts",
                     ImageUrl = null,
                     CreatedAt = DateTime.UtcNow
+                },
+                // Recipes from digitized_recipes_updated (3).pdf
+                new Recipe
+                {
+                    Title = "Fried Chicken and Potatoes in One Pan",
+                    Description = "A classic one-pan meal with pan-fried chicken and potatoes, served with homemade gravy.",
+                    Ingredients = "4 to 6 pieces chicken\nFlour (for rolling/dredging chicken)\nAbout 4 tablespoons shortening (for browning)\nSalt\nPaprika\n2 to 4 potatoes, peeled and halved\n\nGravy:\nMore shortening as needed\nAbout 4 tablespoons flour\nAbout 2 cups water\nSalt to taste",
+                    Instructions = "1. Roll chicken pieces in flour.\n2. Brown one side in about 4 tablespoons shortening.\n3. Sprinkle the unbrowned (up-side) with salt and paprika.\n4. Turn and sprinkle the other side (browned side) with salt and paprika.\n5. Peel potatoes and cut in half. Lay potatoes around browned chicken.\n6. Sprinkle potatoes with salt and paprika. Cover.\n7. Cook over low heat 45 minutes to 60 minutes. Chicken should be tender.\n8. Remove chicken and potatoes from pan.\n9. You may need to add more shortening to make gravy. Use about 4 tablespoons flour and stir into pan drippings.\n10. Blend in water while off heat—about 2 cups.\n11. Return to heat and, using a blender, stir until it boils. Salt to taste.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 60,
+                    Servings = 4,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Tuna and Macaroni",
+                    Description = "A quick and easy comfort food with tuna and macaroni in a creamy mushroom sauce. Family recipe from Mom.",
+                    Ingredients = "1 1/2 cups large elbow macaroni (or 1 1/2 cups noodles)\n2 teaspoons salt\n1 can cream of mushroom soup\n1 can water or milk (may need more water)\n1 (6 1/2-ounce) can tuna, drained",
+                    Instructions = "1. Cook macaroni/noodles as long as package says. Drain.\n2. Combine soup and 1 can water or milk. Bring to a boil; stir often. (May need more water.)\n3. Add drained tuna to soup mixture, then add macaroni/noodles. Stir.\n4. Bake at 350°F for 1/2 hour.\n5. If in a hurry: simmer on stove 5 minutes and serve, but use less water.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 30,
+                    Servings = 3,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Beef Dressing Casserole",
+                    Description = "A hearty casserole with ground beef and bread dressing, topped with mushroom soup. Recipe from Ethel Ploth.",
+                    Ingredients = "1 small onion\n1/4 cup minced celery leaves\n1/4 teaspoon salt\n1/4 teaspoon pepper\n1 teaspoon poultry seasoning\n12 slices bread\n2 cans mushroom soup\n1 cup milk\n2 pounds ground beef\n1 tablespoon prepared mustard\n1 teaspoon Worcestershire sauce",
+                    Instructions = "1. Mix onion, salt, pepper, poultry seasoning, and bread. Blend in 1 can soup + 1 cup milk.\n2. Cover and store in refrigerator overnight.\n3. Mix meat, Worcestershire sauce, and mustard.\n4. Add bread mixture and mix thoroughly.\n5. Put into a 13×9 pan.\n6. Bake 1/2 hour. Remove and spread last can of soup; cook for 1/2 hour more.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 60,
+                    Servings = 8,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Crock-Pot Pot Roast",
+                    Description = "A tender slow cooker pot roast with red wine and herbs, served with homemade gravy.",
+                    Ingredients = "1 onion\n2 cloves garlic\n4 pounds rump roast\n2 teaspoons salt\n1/4 teaspoon pepper\n1/2 teaspoon dried rosemary\n1/2 teaspoon dried thyme\n3/4 cup red wine\n\nGravy:\n3 tablespoons flour\n1/4 cup water\n2 cups cooking liquid (measured from crock pot)",
+                    Instructions = "1. Chop the onion and the garlic.\n2. Put the onions and garlic in the crock pot and set the roast on top.\n3. Sprinkle with the salt, pepper, rosemary, and thyme. Pour in the wine.\n4. Cover and cook on the High setting until the meat is very tender, about 5 hours.\n5. Remove the roast to a serving plate. Measure 2 cups of the cooking liquid into a saucepan.\n6. Stir together the flour and water and stir it into the cooking liquid.\n7. Bring to a boil, stirring; reduce heat and simmer 10 minutes.\n8. Slice the roast and serve with the gravy.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 310,
+                    Servings = 10,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Slow Cooker Fajitas",
+                    Description = "Easy slow cooker fajitas with tender sirloin steak and colorful peppers. Serve with tortillas, salsa, cheese, and cilantro.",
+                    Ingredients = "1 each medium green, red, and yellow pepper, cut into 1/2-inch strips\n1 onion, thinly sliced\n2 pounds boneless sirloin steak, cut into thin strips\n3/4 cup water\n2 tablespoons red wine vinegar\n1 tablespoon lime juice\n2 teaspoons cumin\n1 teaspoon chili powder\n1/2 teaspoon salt\n1/2 teaspoon garlic powder\n1/2 teaspoon pepper\n1/2 teaspoon cayenne\n\nTo serve:\nTortillas\nSalsa\nCheese\nCilantro",
+                    Instructions = "1. Put peppers and onion in the bottom of the slow cooker. Place steak on top.\n2. Add water, red wine vinegar, lime juice, cumin, chili powder, salt, garlic powder, pepper, and cayenne.\n3. Cook 8–9 hours on Low.\n4. To serve: Place about 3/4 cup meat down center of tortillas. Top with 1 tablespoon salsa, 1 tablespoon cheese, and 1 teaspoon cilantro.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 540,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Shepherd's Pie",
+                    Description = "A simple and comforting shepherd's pie with ground beef, vegetable soup, and mashed potatoes.",
+                    Ingredients = "3/4 pound ground beef\nSalt\nOnion\n1 can vegetable soup\nMashed potatoes (to top casserole)",
+                    Instructions = "1. Brown ground beef; drain grease.\n2. Season with salt and add onion.\n3. Add 1 can vegetable soup.\n4. Place mixture in a casserole dish and top with mashed potatoes.\n5. Bake 1/2 hour at 350°F.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 30,
+                    Servings = 3,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Chop Suey Casserole",
+                    Description = "A classic American-Chinese casserole with ground beef, rice, celery, and mushroom soup. Family recipe from Mom.",
+                    Ingredients = "1 1/2 pounds ground beef\n3 medium onions, chopped\n2 cups diced celery\n1/2 cup uncooked rice\n3 1/2 cups boiling water\n2 cans cream of mushroom soup\n2 1/2 tablespoons soy sauce\n1/2 tablespoon brown sugar",
+                    Instructions = "1. Brown beef and celery, and lastly onions.\n2. Mix rice, water, soup, and remaining ingredients.\n3. Add to beef mixture.\n4. Pour into a greased 2-quart casserole.\n5. Bake 1 1/2 hours at 375°F.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 90,
+                    Servings = 10,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                // Recipes from digitized_recipes_v3.pdf
+                new Recipe
+                {
+                    Title = "Slow Cooker Hungarian Goulash",
+                    Description = "A rich and flavorful Hungarian goulash made in the slow cooker with sweet paprika and sour cream. From Cook's Country. Serve over egg noodles or spaetzle.",
+                    Ingredients = "1 (4-pound) boneless beef chuck-eye roast, trimmed and cut into 1 1/2-inch pieces\nSalt and pepper\n1 (12-ounce) jar roasted red peppers, rinsed\n1/2 cup sweet paprika\n2 tablespoons tomato paste\n1 tablespoon distilled white vinegar\n2 tablespoons vegetable oil\n4 pounds onions, chopped (about 6 cups)\n4 carrots, peeled and cut into 1-inch chunks\n3 tablespoons all-purpose flour\n1 bay leaf\n5 tablespoons water\n1/2 cup sour cream\n2 tablespoons minced fresh parsley",
+                    Instructions = "1. Pat beef dry and season with 1 teaspoon salt and pepper. Transfer to slow cooker.\n2. Process red peppers, paprika, tomato paste, and vinegar in a food processor until smooth, about 2 minutes; set aside.\n3. Heat oil in a Dutch oven over medium heat. Add onions, carrots, and 1 teaspoon salt; cook, covered, until onions soften, 8 to 10 minutes.\n4. Stir in flour, bay leaf, and red pepper mixture; cook until mixture begins to brown and stick to bottom of pot, about 2 minutes.\n5. Stir in water, scraping up any browned bits.\n6. Stir onion mixture into slow cooker until beef is evenly coated. Cover and cook until meat is tender: 6 to 7 hours on HIGH, or 7 to 8 hours on LOW.\n7. Turn off slow cooker; let stew settle for 5 minutes, then skim fat and discard bay leaf.\n8. Combine sour cream and 1/2 cup hot stew liquid in a bowl (to temper sour cream), then stir mixture into stew. Season with salt and pepper to taste. Serve, sprinkled with parsley.",
+                    PrepTimeMinutes = 30,
+                    CookTimeMinutes = 420,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Turkeyette Casserole",
+                    Description = "A creamy turkey and noodle casserole with cheddar cheese. Family recipe from Mom.",
+                    Ingredients = "2 cups medium noodles\n2 cups cooked turkey or chicken\n1/4 cup minced pimento\n1 cup cream of mushroom soup\n1/2 can water\n3/4 teaspoon celery salt\n1/4 teaspoon pepper\n1/2 small onion, grated\n1 1/2 cups sharp cheddar cheese, divided (save 1/2 cup for topping)",
+                    Instructions = "1. Heat oven to 350°F.\n2. Mix everything except 1/2 cup of the cheese.\n3. Put in a 1 1/2-quart casserole and cover.\n4. Bake 45 minutes (covered).\n5. Just before serving, add remaining 1/2 cup cheese; return to oven uncovered until cheese melts.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 45,
+                    Servings = 4,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Turkey Chow Mein",
+                    Description = "A quick and easy turkey chow mein. Serve over rice and/or chow mein noodles.",
+                    Ingredients = "4 tablespoons margarine, melted\n2 cups chopped celery\n1 green pepper, cut up (optional)\n1/2 cup cut-up onion (optional)\nTurkey, diced or sliced (2-3 cups)\n1 can chicken rice soup\n1 can water\n1 teaspoon salt\n1/4 teaspoon pepper\nCornstarch slurry: 3 tablespoons cornstarch + a little water\nRice and/or chow mein noodles, for serving",
+                    Instructions = "1. Brown the vegetables in melted margarine.\n2. Add turkey, chicken rice soup, and 1 can water; simmer until hot.\n3. Stir in cornstarch slurry; cook until thickened, stirring.\n4. Serve over rice and/or chow mein noodles.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 20,
+                    Servings = 4,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Lasagna",
+                    Description = "A classic homemade lasagna with layers of noodles, cottage cheese mixture, mozzarella, and meat sauce. Family recipe from Mom.",
+                    Ingredients = "1/2 to 3/4 pound ground beef\n1 small can tomato sauce\n1 teaspoon salt\n4 lasagna noodles\n\nCottage cheese mixture:\n1 (12-ounce) carton cottage cheese\n1 egg, beaten\n1 teaspoon salt\n1/4 teaspoon pepper\n1 tablespoon parsley flakes\n1/4 cup grated Parmesan cheese\n1 (6-ounce) package thin-sliced mozzarella cheese",
+                    Instructions = "1. Heat oven to 375°F. Grease a casserole dish.\n2. Brown ground beef; drain. Add tomato sauce (and salt).\n3. Cook noodles in salted water; drain and rinse in cold water.\n4. Mix cottage cheese mixture ingredients.\n5. Layer: noodles → cottage cheese mixture → mozzarella cheese → meat mixture. Repeat layers.\n6. Bake 30 minutes at 375°F.",
+                    PrepTimeMinutes = 25,
+                    CookTimeMinutes = 30,
+                    Servings = 8,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Turkey and Dumplings",
+                    Description = "Comfort food with tender turkey, carrots, and fluffy homemade dumplings.",
+                    Ingredients = "2 cups cooked turkey, cubed\n2 3/4 cups carrots, cut up\n3 chicken bouillon cubes\nWater, to cover\nOnion, about 1 tablespoon\nMilk + flour to thicken (about 1/2 cup milk)\n\nDumplings:\n1/2 cup milk\n2 tablespoons oil\n1 cup flour\n2 teaspoons baking powder\n1/2 teaspoon salt",
+                    Instructions = "1. Combine turkey, carrots, bouillon, water to cover, and onion. Boil until carrots are tender.\n2. Thicken broth with flour and milk.\n3. Mix dumplings (dry ingredients + oil + milk).\n4. Drop dumplings onto simmering turkey mixture. Turn heat down, cover, and cook 12–15 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 35,
+                    Servings = 4,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Easy Smoked Sausage Skillet",
+                    Description = "A quick 20-minute skillet meal with smoked sausage, vegetables, and rice topped with mozzarella cheese. From Hillshire Farm.",
+                    Ingredients = "1 (14-ounce) package smoked sausage, sliced diagonally into 1/4-inch slices\n1/4 cup olive oil\n2 cloves garlic, crushed\n1 large red bell pepper, sliced thin\n1 small yellow onion, sliced thin\n1 (10-ounce) package frozen broccoli, thawed\n1/2 cup chicken broth or water\n1/2 cup tomato sauce\n2 cups instant rice\n1/2 cup shredded mozzarella cheese",
+                    Instructions = "1. Heat olive oil and crushed garlic; stir in smoked sausage slices and cook until sausage is browned.\n2. Add pepper, onion, broccoli, chicken broth/water, and tomato sauce; simmer about 10 minutes until vegetables are tender and liquid is absorbed.\n3. In the meantime, cook rice according to package instructions. Stir rice into skillet; sprinkle with cheese and serve.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 20,
+                    Servings = 4,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Chicken-Macaroni Casserole",
+                    Description = "A creamy baked casserole with chicken, macaroni, cheddar cheese, and mushrooms. Can also be made with tuna.",
+                    Ingredients = "1 1/2 cups cut-up cooked chicken (or turkey)\n1 1/2 cups uncooked elbow macaroni\n1 cup shredded Cheddar cheese (about 4 ounces)\n1 can (4 ounces) mushroom stems and pieces, drained\n1/4 cup chopped pimiento\n1 can (10 1/2 ounces) condensed cream of chicken soup\n1 cup milk\n1/2 teaspoon salt\n1/2 teaspoon curry powder, if desired",
+                    Instructions = "1. Heat oven to 350°F.\n2. Stir together all ingredients. Pour into an ungreased 1 1/2-quart casserole.\n3. Cover; bake 1 hour.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 60,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Turkey Hash",
+                    Description = "A hearty skillet hash with leftover turkey, potatoes, and green peppers. Great for using up holiday leftovers.",
+                    Ingredients = "4 to 5 potatoes, peeled and cut into small cubes\n1 large green pepper, cored and cut into small cubes (or strips)\n1 onion, finely chopped (or a sprinkling of onion powder)\n1 to 2 cups chopped leftover cooked turkey breast\n1 teaspoon dried thyme\n1 to 2 tablespoons Worcestershire sauce\n3 tablespoons chopped parsley (or a sprinkling of dried)\n1/2 cup milk\nSalt and pepper to taste",
+                    Instructions = "1. Spray a large nonstick skillet with pan spray.\n2. Sauté potatoes, pepper, and onion over medium-high heat for about 10 minutes, until potatoes start to soften.\n3. Stir in turkey, thyme, Worcestershire sauce, parsley, salt, and pepper.\n4. Pour milk over. Reduce heat and cook until milk has been absorbed and a crust has formed on bottom.\n5. Turn hash and cook until the second side is brown.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 25,
+                    Servings = 4,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Beef Stroganoff (Slow Cooker)",
+                    Description = "A creamy slow cooker beef stroganoff with mushrooms and sour cream. Serve over egg noodles.",
+                    Ingredients = "1 package (14 ounces) white mushrooms, cleaned and quartered\n1 1/2 pounds beef chuck steak, trimmed and cut into 1-inch cubes\n1/2 teaspoon salt\n2 onions, finely chopped\n2 tablespoons tomato paste\n1/2 cup reduced-sodium beef broth\n1/2 cup water (plus an additional 1/2 cup water in slurry step)\n1 tablespoon cornstarch\n1 cup reduced-fat sour cream\n1 pound medium egg noodles\n1/2 cup chopped parsley (optional)",
+                    Instructions = "1. Combine beef, mushrooms, onions, tomato paste, broth, and water in slow cooker. Cook on HIGH about 4 1/2 hours or LOW about 6 hours, until beef is tender.\n2. Stir together sour cream, remaining water, and cornstarch; add and cook on HIGH about 30 minutes, until thickened.\n3. Serve over egg noodles; sprinkle with parsley if desired.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 300,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Indian-Spiced Chicken Thighs (Slow Cooker)",
+                    Description = "Tender slow cooker chicken thighs with garam masala, golden raisins, and a creamy yogurt sauce. Serve over basmati rice.",
+                    Ingredients = "3 pounds boneless, skinless chicken thighs\n2 onions, thinly sliced\n3 garlic cloves, minced\n1/4 cup golden raisins\n1 3/4 teaspoons garam masala, divided\n1/2 teaspoon salt, divided\n1/4 teaspoon black pepper\n1 cup low-sodium chicken broth\n1/2 cup plain yogurt\n2 tablespoons cornstarch\n1/4 cup toasted slivered almonds\n2 cups cooked basmati rice (optional)",
+                    Instructions = "1. Combine chicken, onions, garlic, raisins, 1 teaspoon garam masala, 1/4 teaspoon salt, pepper, and broth in slow cooker. Cover and cook for 3 hours on HIGH or 5 hours on LOW.\n2. In a small bowl, stir together remaining 3/4 teaspoon garam masala, remaining 1/4 teaspoon salt, yogurt, and cornstarch. Remove chicken to a platter; keep warm.\n3. Whisk yogurt mixture into slow cooker bowl and cover; cook an additional 15 minutes or until sauce has thickened. Stir in almonds and serve sauce with chicken over rice, if desired.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 195,
+                    Servings = 4,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Black Beans and Pork (Slow Cooker)",
+                    Description = "A hearty slow cooker dish with tender pork, black beans, and tomatoes with green chilies. Serve over rice.",
+                    Ingredients = "1 1/2 pounds boneless pork loin, trimmed and cut into 1/2-inch cubes\n1 teaspoon chili powder\n1 teaspoon ground coriander\n1/4 teaspoon salt\n1/4 teaspoon black pepper\n1 onion, chopped\n2 cans (15 ounces each) black beans, drained and rinsed\n1 can (14.5 ounces) diced tomatoes with green chilies\n1 1/4 cups water\n1/4 cup chopped cilantro\n3 cups cooked white rice (optional)",
+                    Instructions = "1. In a slow cooker bowl, toss together pork, chili powder, coriander, salt, and pepper. Stir in onion, beans, tomatoes, and 1 1/4 cups water. Cover and cook on HIGH for 4 hours or on LOW for 6 hours.\n2. Stir in cilantro. Using a potato masher, mash beans slightly until mixture is thickened. Serve bean mixture over rice, if desired.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 240,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
                 }
             );
 
