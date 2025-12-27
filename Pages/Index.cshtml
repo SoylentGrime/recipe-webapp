@@ -1,0 +1,113 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container">
+    <!-- Hero Section -->
+    <div class="px-4 py-5 my-5 text-center">
+        <i class="bi bi-book display-1 text-primary mb-4"></i>
+        <h1 class="display-4 fw-bold">Welcome to Recipe Book</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                Discover, save, and share delicious recipes. From quick weeknight dinners to impressive party dishes,
+                find your next culinary adventure here.
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a asp-page="/Recipes/Index" class="btn btn-primary btn-lg px-4 gap-3">
+                    <i class="bi bi-journal-text"></i> Browse Recipes
+                </a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-page="/Recipes/Admin/Create" class="btn btn-outline-success btn-lg px-4">
+                        <i class="bi bi-plus-circle"></i> Add Recipe
+                    </a>
+                }
+                else if (!User.Identity?.IsAuthenticated ?? true)
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-secondary btn-lg px-4">
+                        <i class="bi bi-box-arrow-in-right"></i> Admin Login
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-primary text-light flex-shrink-0 me-3 rounded p-3">
+                <i class="bi bi-search fs-4"></i>
+            </div>
+            <div>
+                <h3 class="fs-4">Easy to Find</h3>
+                <p>Search and filter recipes by category, ingredients, or cooking time to find exactly what you're looking for.</p>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-success text-light flex-shrink-0 me-3 rounded p-3">
+                <i class="bi bi-clock fs-4"></i>
+            </div>
+            <div>
+                <h3 class="fs-4">Quick & Simple</h3>
+                <p>Clear instructions with prep times and serving sizes help you plan your cooking efficiently.</p>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-warning text-dark flex-shrink-0 me-3 rounded p-3">
+                <i class="bi bi-printer fs-4"></i>
+            </div>
+            <div>
+                <h3 class="fs-4">Print Friendly</h3>
+                <p>Print any recipe with a clean, easy-to-read format perfect for use in the kitchen.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Recipes Preview -->
+    @if (Model.RecentRecipes.Any())
+    {
+        <div class="py-5">
+            <h2 class="text-center mb-4">
+                <i class="bi bi-star"></i> Recently Added
+            </h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                @foreach (var recipe in Model.RecentRecipes)
+                {
+                    <div class="col">
+                        <div class="card h-100">
+                            @if (!string.IsNullOrEmpty(recipe.ImageUrl))
+                            {
+                                <img src="@recipe.ImageUrl" class="card-img-top" alt="@recipe.Title" style="height: 150px; object-fit: cover;">
+                            }
+                            else
+                            {
+                                <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 150px;">
+                                    <i class="bi bi-image text-white fs-1"></i>
+                                </div>
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@recipe.Title</h5>
+                                @if (!string.IsNullOrEmpty(recipe.Category))
+                                {
+                                    <span class="badge bg-info">@recipe.Category</span>
+                                }
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a asp-page="/Recipes/Details" asp-route-id="@recipe.Id" class="btn btn-sm btn-outline-primary">
+                                    View Recipe
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-4">
+                <a asp-page="/Recipes/Index" class="btn btn-outline-primary">
+                    View All Recipes <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>

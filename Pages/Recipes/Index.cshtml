@@ -1,0 +1,255 @@
+@page
+@model Recipe_Webpage.Pages.Recipes.IndexModel
+@{
+    ViewData["Title"] = "Recipes";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="display-4">
+                <i class="bi bi-book"></i> Recipe Collection
+            </h1>
+            <p class="lead text-muted">Discover delicious recipes for every occasion</p>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="col-auto d-flex align-items-center">
+                <a asp-page="Admin/Create" class="btn btn-success btn-lg">
+                    <i class="bi bi-plus-circle"></i> Add New Recipe
+                </a>
+            </div>
+        }
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-6">
+                    <label for="searchString" class="form-label">Search</label>
+                    <input type="text" class="form-control" id="searchString" name="searchString" 
+                           value="@Model.SearchString" placeholder="Search by title or description...">
+                </div>
+                <div class="col-md-4">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="">All Categories</option>
+                        @foreach (var cat in Model.Categories)
+                        {
+                            <option value="@cat" selected="@(Model.Category == cat)">@cat</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-search"></i> Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Selection Controls -->
+    @if (Model.Recipes.Any())
+    {
+        <div class="card mb-3 selection-controls" id="selectionControls">
+            <div class="card-body py-2">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="selectAll" onchange="toggleSelectAll(this)">
+                            <label class="form-check-label" for="selectAll">
+                                <strong>Select All</strong>
+                            </label>
+                        </div>
+                        <span class="text-muted" id="selectionCount">0 selected</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="printSelected()" id="printSelectedBtn" disabled>
+                            <i class="bi bi-printer"></i> Print Selected
+                        </button>
+                        <a href="/Recipes/PrintMultiple?all=true" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-printer"></i> Print All (@Model.Recipes.Count())
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Recipe Cards -->
+    @if (Model.Recipes.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var recipe in Model.Recipes)
+            {
+                <div class="col">
+                    <div class="card h-100 recipe-card position-relative">
+                        <!-- Selection Checkbox -->
+                        <div class="position-absolute top-0 start-0 m-2 z-1">
+                            <div class="form-check recipe-checkbox-container">
+                                <input class="form-check-input recipe-checkbox" type="checkbox" 
+                                       value="@recipe.Id" id="recipe-@recipe.Id" 
+                                       onchange="updateSelectionCount()">
+                            </div>
+                        </div>
+                        @if (!string.IsNullOrEmpty(recipe.ImageUrl))
+                        {
+                            <img src="@recipe.ImageUrl" class="card-img-top" alt="@recipe.Title" style="height: 200px; object-fit: cover;">
+                        }
+                        else
+                        {
+                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="bi bi-image text-white" style="font-size: 3rem;"></i>
+                            </div>
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@recipe.Title</h5>
+                            @if (!string.IsNullOrEmpty(recipe.Category))
+                            {
+                                <span class="badge bg-info mb-2">@recipe.Category</span>
+                            }
+                            <p class="card-text text-muted">
+                                @(recipe.Description?.Length > 100 ? recipe.Description.Substring(0, 100) + "..." : recipe.Description)
+                            </p>
+                            <div class="d-flex justify-content-between text-muted small">
+                                <span><i class="bi bi-clock"></i> @(recipe.PrepTimeMinutes + recipe.CookTimeMinutes) min</span>
+                                <span><i class="bi bi-people"></i> @recipe.Servings servings</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between">
+                                <a asp-page="Details" asp-route-id="@recipe.Id" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div>
+                                        <a asp-page="Admin/Edit" asp-route-id="@recipe.Id" class="btn btn-outline-secondary btn-sm">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-page="Admin/Delete" asp-route-id="@recipe.Id" class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No recipes found. 
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-page="Admin/Create">Add the first recipe!</a>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .recipe-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .recipe-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .recipe-checkbox-container {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 4px;
+        padding: 5px 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .recipe-checkbox {
+        width: 1.25em;
+        height: 1.25em;
+        cursor: pointer;
+    }
+    .recipe-card.selected {
+        outline: 3px solid var(--bs-primary);
+        outline-offset: -3px;
+    }
+    .selection-controls {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    .z-1 {
+        z-index: 1;
+    }
+</style>
+
+<script>
+    function updateSelectionCount() {
+        const checkboxes = document.querySelectorAll('.recipe-checkbox');
+        const selectedCount = document.querySelectorAll('.recipe-checkbox:checked').length;
+        const countDisplay = document.getElementById('selectionCount');
+        const printBtn = document.getElementById('printSelectedBtn');
+        const selectAllCheckbox = document.getElementById('selectAll');
+        
+        countDisplay.textContent = selectedCount + ' selected';
+        printBtn.disabled = selectedCount === 0;
+        
+        // Update select all checkbox state
+        if (selectedCount === 0) {
+            selectAllCheckbox.checked = false;
+            selectAllCheckbox.indeterminate = false;
+        } else if (selectedCount === checkboxes.length) {
+            selectAllCheckbox.checked = true;
+            selectAllCheckbox.indeterminate = false;
+        } else {
+            selectAllCheckbox.checked = false;
+            selectAllCheckbox.indeterminate = true;
+        }
+        
+        // Update card visual selection state
+        checkboxes.forEach(cb => {
+            const card = cb.closest('.recipe-card');
+            if (cb.checked) {
+                card.classList.add('selected');
+            } else {
+                card.classList.remove('selected');
+            }
+        });
+    }
+    
+    function toggleSelectAll(checkbox) {
+        const allCheckboxes = document.querySelectorAll('.recipe-checkbox');
+        allCheckboxes.forEach(cb => {
+            cb.checked = checkbox.checked;
+        });
+        updateSelectionCount();
+    }
+    
+    function printSelected() {
+        const selectedIds = Array.from(document.querySelectorAll('.recipe-checkbox:checked'))
+            .map(cb => cb.value)
+            .join(',');
+        
+        if (selectedIds) {
+            window.location.href = '/Recipes/PrintMultiple?ids=' + selectedIds;
+        }
+    }
+    
+    // Allow clicking on card to toggle selection (except on links/buttons)
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.recipe-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't toggle if clicking on a link, button, or the checkbox itself
+                if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.form-check-input')) {
+                    return;
+                }
+                const checkbox = this.querySelector('.recipe-checkbox');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    updateSelectionCount();
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,41 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+publish/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# User secrets
+secrets.json
+
+# SQLite database
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Azure
+*.pubxml
+*.publishsettings
+
+# Deployment
+deploy.zip
+
+# Package manager
+node_modules/
+packages/

@@ -1,0 +1,188 @@
+@page "{id:int}"
+@model Recipe_Webpage.Pages.Recipes.Admin.EditModel
+@{
+    ViewData["Title"] = "Edit Recipe";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="../Index">Recipes</a></li>
+            <li class="breadcrumb-item"><a asp-page="../Details" asp-route-id="@Model.Recipe?.Id">@Model.Recipe?.Title</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+        </ol>
+    </nav>
+
+    @if (Model.Recipe == null)
+    {
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle"></i> Recipe not found.
+        </div>
+        <a asp-page="../Index" class="btn btn-primary">Back to Recipes</a>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0"><i class="bi bi-pencil"></i> Edit Recipe</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                            <input type="hidden" asp-for="Recipe.Id" />
+                            <input type="hidden" asp-for="Recipe.CreatedAt" />
+                            
+                            <div class="mb-3">
+                                <label asp-for="Recipe.Title" class="form-label"></label>
+                                <input asp-for="Recipe.Title" class="form-control" />
+                                <span asp-validation-for="Recipe.Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Recipe.Description" class="form-label"></label>
+                                <textarea asp-for="Recipe.Description" class="form-control" rows="2"></textarea>
+                                <span asp-validation-for="Recipe.Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Recipe.Category" class="form-label"></label>
+                                    <input asp-for="Recipe.Category" class="form-control" list="categories" />
+                                    <datalist id="categories">
+                                        <option value="Appetizers"></option>
+                                        <option value="Breakfast"></option>
+                                        <option value="Lunch"></option>
+                                        <option value="Dinner"></option>
+                                        <option value="Desserts"></option>
+                                        <option value="Soups"></option>
+                                        <option value="Salads"></option>
+                                        <option value="Pasta"></option>
+                                        <option value="Pizza"></option>
+                                        <option value="Curry"></option>
+                                        <option value="Seafood"></option>
+                                        <option value="Vegetarian"></option>
+                                        <option value="Vegan"></option>
+                                    </datalist>
+                                    <span asp-validation-for="Recipe.Category" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Image Section -->
+                            <div class="card mb-3 border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h6 class="mb-0"><i class="bi bi-image"></i> Recipe Image</h6>
+                                </div>
+                                <div class="card-body">
+                                    @if (!string.IsNullOrEmpty(Model.Recipe.ImageUrl))
+                                    {
+                                        <div class="mb-3 text-center">
+                                            <img src="@Model.Recipe.ImageUrl" alt="Current recipe image" 
+                                                 class="img-thumbnail" style="max-height: 200px;" />
+                                            <p class="text-muted small mt-1">Current image</p>
+                                        </div>
+                                    }
+                                    
+                                    <div class="mb-3">
+                                        <label asp-for="ImageFile" class="form-label">
+                                            <i class="bi bi-upload"></i> Upload New Image
+                                        </label>
+                                        <input asp-for="ImageFile" class="form-control" type="file" 
+                                               accept="@string.Join(",", Model.AllowedExtensions)" />
+                                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                        <div class="form-text">
+                                            Allowed: @string.Join(", ", Model.AllowedExtensions) | Max size: @Model.MaxFileSizeMB MB
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-0">
+                                        <label asp-for="Recipe.ImageUrl" class="form-label">
+                                            <i class="bi bi-link-45deg"></i> Or Enter Image URL
+                                        </label>
+                                        <input asp-for="Recipe.ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
+                                        <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
+                                        <div class="form-text">
+                                            If you upload a new image, it will replace this URL.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="Recipe.PrepTimeMinutes" class="form-label"></label>
+                                    <div class="input-group">
+                                        <input asp-for="Recipe.PrepTimeMinutes" class="form-control" type="number" min="1" max="1440" />
+                                        <span class="input-group-text">min</span>
+                                    </div>
+                                    <span asp-validation-for="Recipe.PrepTimeMinutes" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="Recipe.CookTimeMinutes" class="form-label"></label>
+                                    <div class="input-group">
+                                        <input asp-for="Recipe.CookTimeMinutes" class="form-control" type="number" min="1" max="1440" />
+                                        <span class="input-group-text">min</span>
+                                    </div>
+                                    <span asp-validation-for="Recipe.CookTimeMinutes" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="Recipe.Servings" class="form-label"></label>
+                                    <input asp-for="Recipe.Servings" class="form-control" type="number" min="1" max="100" />
+                                    <span asp-validation-for="Recipe.Servings" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Recipe.Ingredients" class="form-label"></label>
+                                <textarea asp-for="Recipe.Ingredients" class="form-control" rows="8"></textarea>
+                                <div class="form-text">Enter each ingredient on a new line</div>
+                                <span asp-validation-for="Recipe.Ingredients" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Recipe.Instructions" class="form-label"></label>
+                                <textarea asp-for="Recipe.Instructions" class="form-control" rows="10"></textarea>
+                                <div class="form-text">Enter each step on a new line</div>
+                                <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <a asp-page="../Details" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left"></i> Cancel
+                                </a>
+                                <div>
+                                    <a asp-page="Delete" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-danger me-2">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-check-circle"></i> Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="bi bi-clock-history"></i> History</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Created:</strong> @Model.Recipe.CreatedAt.ToString("MMMM d, yyyy h:mm tt")</p>
+                        @if (Model.Recipe.UpdatedAt.HasValue)
+                        {
+                            <p><strong>Last Updated:</strong> @Model.Recipe.UpdatedAt.Value.ToString("MMMM d, yyyy h:mm tt")</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

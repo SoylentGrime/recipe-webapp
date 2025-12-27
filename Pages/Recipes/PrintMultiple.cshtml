@@ -1,0 +1,245 @@
+@page
+@model Recipe_Webpage.Pages.Recipes.PrintMultipleModel
+@{
+    ViewData["Title"] = "Print Recipes";
+    Layout = null; // Use no layout for cleaner printing
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+        }
+        
+        .recipe-print {
+            page-break-after: always;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .recipe-print:last-child {
+            page-break-after: auto;
+        }
+        
+        .recipe-header {
+            border-bottom: 2px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .recipe-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .recipe-meta {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .recipe-description {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+        
+        .ingredients-list {
+            list-style-type: disc;
+            padding-left: 25px;
+        }
+        
+        .ingredients-list li {
+            margin-bottom: 5px;
+        }
+        
+        .instructions-list {
+            padding-left: 25px;
+        }
+        
+        .instructions-list li {
+            margin-bottom: 10px;
+        }
+        
+        .recipe-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-label {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+        }
+        
+        .info-value {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        /* Screen-only styles */
+        @@media screen {
+            .no-print {
+                display: block;
+            }
+            
+            .print-controls {
+                position: sticky;
+                top: 0;
+                background: #fff;
+                padding: 15px;
+                border-bottom: 1px solid #ddd;
+                z-index: 100;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Print styles */
+        @@media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            .recipe-print {
+                padding: 0;
+            }
+            
+            body {
+                font-size: 11pt;
+            }
+            
+            .recipe-title {
+                font-size: 18pt;
+            }
+            
+            .section-title {
+                font-size: 14pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-controls no-print">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-0">
+                        <i class="bi bi-printer"></i> Print Preview
+                        <small class="text-muted">(@Model.Recipes.Count recipe@(Model.Recipes.Count != 1 ? "s" : ""))</small>
+                    </h4>
+                </div>
+                <div>
+                    <button onclick="window.print()" class="btn btn-primary">
+                        <i class="bi bi-printer"></i> Print Recipes
+                    </button>
+                    <a href="/Recipes" class="btn btn-outline-secondary ms-2">
+                        <i class="bi bi-arrow-left"></i> Back to Recipes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.Recipes.Any())
+    {
+        <div class="container mt-4 no-print">
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i> No recipes selected for printing.
+                <a href="/Recipes" class="alert-link">Go back to select recipes.</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        @foreach (var recipe in Model.Recipes)
+        {
+            <div class="recipe-print">
+                <div class="recipe-header">
+                    <div class="recipe-title">@recipe.Title</div>
+                    @if (!string.IsNullOrEmpty(recipe.Category))
+                    {
+                        <span class="badge bg-secondary">@recipe.Category</span>
+                    }
+                </div>
+
+                @if (!string.IsNullOrEmpty(recipe.Description))
+                {
+                    <p class="recipe-description">@recipe.Description</p>
+                }
+
+                <div class="recipe-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Prep Time</span>
+                        <span class="info-value">@recipe.PrepTimeMinutes min</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Cook Time</span>
+                        <span class="info-value">@recipe.CookTimeMinutes min</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Time</span>
+                        <span class="info-value">@(recipe.PrepTimeMinutes + recipe.CookTimeMinutes) min</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Servings</span>
+                        <span class="info-value">@recipe.Servings</span>
+                    </div>
+                </div>
+
+                <div class="section-title">Ingredients</div>
+                <ul class="ingredients-list">
+                    @foreach (var ingredient in recipe.Ingredients.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        <li>@ingredient.Trim()</li>
+                    }
+                </ul>
+
+                <div class="section-title">Instructions</div>
+                <ol class="instructions-list">
+                    @foreach (var step in recipe.Instructions.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        var cleanStep = step.Trim();
+                        // Remove leading number and period if present
+                        if (cleanStep.Length > 2 && char.IsDigit(cleanStep[0]))
+                        {
+                            var dotIndex = cleanStep.IndexOf('.');
+                            if (dotIndex > 0 && dotIndex < 4)
+                            {
+                                cleanStep = cleanStep.Substring(dotIndex + 1).Trim();
+                            }
+                        }
+                        <li>@cleanStep</li>
+                    }
+                </ol>
+            </div>
+        }
+    }
+</body>
+</html>

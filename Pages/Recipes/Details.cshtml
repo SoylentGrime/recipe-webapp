@@ -1,0 +1,161 @@
+@page "{id:int}"
+@model Recipe_Webpage.Pages.Recipes.DetailsModel
+@{
+    ViewData["Title"] = Model.Recipe?.Title ?? "Recipe Details";
+}
+
+@if (Model.Recipe == null)
+{
+    <div class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle"></i> Recipe not found.
+    </div>
+    <a asp-page="Index" class="btn btn-primary">Back to Recipes</a>
+}
+else
+{
+    <div class="container">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="Index">Recipes</a></li>
+                @if (!string.IsNullOrEmpty(Model.Recipe.Category))
+                {
+                    <li class="breadcrumb-item"><a asp-page="Index" asp-route-category="@Model.Recipe.Category">@Model.Recipe.Category</a></li>
+                }
+                <li class="breadcrumb-item active" aria-current="page">@Model.Recipe.Title</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    @if (!string.IsNullOrEmpty(Model.Recipe.ImageUrl))
+                    {
+                        <img src="@Model.Recipe.ImageUrl" class="card-img-top" alt="@Model.Recipe.Title" style="max-height: 400px; object-fit: cover;">
+                    }
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h1 class="card-title">@Model.Recipe.Title</h1>
+                                @if (!string.IsNullOrEmpty(Model.Recipe.Category))
+                                {
+                                    <span class="badge bg-info fs-6">@Model.Recipe.Category</span>
+                                }
+                            </div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="btn-group">
+                                    <a asp-page="Admin/Edit" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-primary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <a asp-page="Admin/Delete" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </div>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.Recipe.Description))
+                        {
+                            <p class="lead">@Model.Recipe.Description</p>
+                        }
+                    </div>
+                </div>
+
+                <!-- Ingredients -->
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0"><i class="bi bi-basket"></i> Ingredients</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var ingredient in Model.Recipe.Ingredients.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <li class="list-group-item">
+                                    <i class="bi bi-check2-circle text-success me-2"></i> @ingredient.Trim()
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0"><i class="bi bi-list-ol"></i> Instructions</h4>
+                    </div>
+                    <div class="card-body">
+                        <ol class="instruction-list">
+                            @foreach (var step in Model.Recipe.Instructions.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                var cleanStep = step.Trim();
+                                // Remove leading number and period if present
+                                if (cleanStep.Length > 2 && char.IsDigit(cleanStep[0]) && cleanStep[1] == '.')
+                                {
+                                    cleanStep = cleanStep.Substring(2).Trim();
+                                }
+                                <li class="mb-3">@cleanStep</li>
+                            }
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Recipe Info Card -->
+                <div class="card mb-4 sticky-top" style="top: 20px;">
+                    <div class="card-header bg-warning">
+                        <h5 class="mb-0"><i class="bi bi-info-circle"></i> Recipe Info</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-hourglass-split text-primary"></i> Prep Time</span>
+                            <strong>@Model.Recipe.PrepTimeMinutes min</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-fire text-danger"></i> Cook Time</span>
+                            <strong>@Model.Recipe.CookTimeMinutes min</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-clock text-success"></i> Total Time</span>
+                            <strong>@(Model.Recipe.PrepTimeMinutes + Model.Recipe.CookTimeMinutes) min</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-people text-info"></i> Servings</span>
+                            <strong>@Model.Recipe.Servings</strong>
+                        </li>
+                    </ul>
+                    <div class="card-footer text-muted small">
+                        <div>Added: @Model.Recipe.CreatedAt.ToString("MMMM d, yyyy")</div>
+                        @if (Model.Recipe.UpdatedAt.HasValue)
+                        {
+                            <div>Updated: @Model.Recipe.UpdatedAt.Value.ToString("MMMM d, yyyy")</div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Print Button -->
+                <button onclick="window.print()" class="btn btn-outline-secondary w-100 mb-4">
+                    <i class="bi bi-printer"></i> Print Recipe
+                </button>
+
+                <a asp-page="Index" class="btn btn-primary w-100">
+                    <i class="bi bi-arrow-left"></i> Back to Recipes
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .instruction-list li {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        @@media print {
+            .btn, nav, .sticky-top {
+                display: none !important;
+            }
+        }
+    </style>
+}
