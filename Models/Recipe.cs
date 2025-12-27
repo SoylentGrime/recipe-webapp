@@ -39,4 +39,9 @@ public class Recipe
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public DateTime? UpdatedAt { get; set; }
+
+    [Display(Name = "Verified")]
+    public bool IsVerified { get; set; } = false;
+
+    public DateTime? VerifiedAt { get; set; }
 }
