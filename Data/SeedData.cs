@@ -426,6 +426,229 @@ public static class SeedData
                     Category = "Breakfast",
                     ImageUrl = null,
                     CreatedAt = DateTime.UtcNow
+                },
+                // Recipes from digitized_recipes_final.pdf
+                new Recipe
+                {
+                    Title = "Brown Sugar Frosting",
+                    Description = "A simple caramel-style frosting made with brown sugar, cream, and butter. Family recipe from Mom.",
+                    Ingredients = "4 tablespoons brown sugar\n4 tablespoons cream\n4 tablespoons butter\nPowdered sugar (to consistency)",
+                    Instructions = "1. Combine brown sugar, cream, and butter; bring to a boil.\n2. Remove from heat and add powdered sugar until it reaches the proper consistency.",
+                    PrepTimeMinutes = 5,
+                    CookTimeMinutes = 5,
+                    Servings = 8,
+                    Category = "Frostings",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Seven Minute Icing",
+                    Description = "A light, fluffy meringue-style icing made in a double boiler. Family recipe from Mom.",
+                    Ingredients = "1 unbeaten egg white\n2/3 cup sugar\n3 tablespoons cold water\n1/4 teaspoon baking powder\n1 teaspoon vanilla",
+                    Instructions = "1. Combine all ingredients in the top of a double boiler.\n2. Beat constantly for 7 minutes using an electric mixer.",
+                    PrepTimeMinutes = 2,
+                    CookTimeMinutes = 7,
+                    Servings = 8,
+                    Category = "Frostings",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Apple Cake",
+                    Description = "A moist, spiced cake loaded with fresh apples. Bakes in a 9×13-inch pan. Family recipe from Mom.",
+                    Ingredients = "2 cups sugar\n1 cup margarine\n2 eggs\n2 cups flour\n2 teaspoons baking soda\n2 teaspoons cinnamon\n2 teaspoons nutmeg\n2 teaspoons vanilla\n4 cups peeled tart apples",
+                    Instructions = "1. Cream together sugar and margarine; add eggs.\n2. Sift together flour, baking soda, cinnamon, and nutmeg; add to mixture.\n3. Stir in vanilla.\n4. Add apples last; stir to combine.\n5. Bake in a greased, floured 9×13-inch pan at 350°F for 1 hour (or until apples are done).",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 60,
+                    Servings = 12,
+                    Category = "Desserts",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Buttercream Frosting",
+                    Description = "Classic buttercream frosting. Enough for two 8-inch or 9-inch cake layers. Family recipe from Mom.",
+                    Ingredients = "1 pound powdered sugar\n1/2 teaspoon salt\n1/4 cup milk\n1 teaspoon vanilla\n1/3 cup soft butter or margarine",
+                    Instructions = "1. Combine all ingredients in a mixing bowl.\n2. Beat with an electric mixer until smooth.\n3. If too stiff, add a few drops of milk.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 0,
+                    Servings = 16,
+                    Category = "Frostings",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Grandma's Chocolate Cake",
+                    Description = "A rich, moist chocolate cake. Bakes in a 9×13-inch pan or two round layers. Family recipe from Mom (labeled 'Grandma's').",
+                    Ingredients = "Milk mixture:\n1 cup milk\n1 tablespoon vinegar\n\nCake batter:\n1 cup shortening\n2 cups sugar\n2 eggs\n1/2 cup cocoa\n2 1/2 cups flour\n2 teaspoons baking soda\n1/2 teaspoon salt\n1 cup hot water\n1 teaspoon vanilla",
+                    Instructions = "1. Stir vinegar into milk and let set.\n2. Cream sugar and shortening.\n3. Add eggs, one at a time.\n4. Add cocoa.\n5. Combine flour, baking soda, and salt; add alternately with the milk mixture. Blend just until smooth.\n6. Stir in hot water and vanilla.\n7. Bake at 350°F for 40–45 minutes (in a greased & floured 9×13-inch pan, or in two prepared round pans).",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 45,
+                    Servings = 12,
+                    Category = "Desserts",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Grandma's Chocolate Cake Frosting",
+                    Description = "A simple chocolate frosting to pair with Grandma's Chocolate Cake. Family recipe from Mom.",
+                    Ingredients = "1/3 cup cocoa\n3 cups powdered sugar\n1/4 cup margarine\n1 teaspoon vanilla\nWarm water (to consistency)",
+                    Instructions = "1. Combine cocoa, powdered sugar, margarine, and vanilla.\n2. Add warm water a little at a time until the frosting reaches spreading consistency.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 0,
+                    Servings = 12,
+                    Category = "Frostings",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Blitzen Cake (Germany)",
+                    Description = "A German layered cake with meringue topping and lemon filling. Recipe from Kathy. Serves 10–12.",
+                    Ingredients = "Cake:\n1/2 cup shortening\n1/2 cup sugar\n4 egg yolks\n5 tablespoons milk\n1 cup cake flour\n1 teaspoon baking powder\n1/2 teaspoon vanilla\n\nMeringue topping:\n4 egg whites\n1 cup powdered sugar\n\nNut topping:\n1/2 cup chopped nuts\n\nLemon filling:\nJuice and rind of 1 lemon\n1 cup sugar\n1 egg, beaten",
+                    Instructions = "1. Cream shortening and sugar.\n2. Beat in egg yolks; stir in milk.\n3. Sift together cake flour and baking powder; add to batter. Stir in vanilla.\n4. Put batter in 2 layer cake pans which have been slightly greased.\n5. Beat egg whites until stiff; add powdered sugar and beat well. Spread on top of each layer.\n6. Sprinkle chopped nuts on top. Bake at 350°F until browned. Cool.\n7. Filling: Combine lemon juice/rind, sugar, and beaten egg; cook in a double boiler until thick. Cool.\n8. Spread filling between cake layers.",
+                    PrepTimeMinutes = 30,
+                    CookTimeMinutes = 30,
+                    Servings = 12,
+                    Category = "Desserts",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Chocolate Butter-Cream Frosting",
+                    Description = "A rich chocolate buttercream frosting. Enough for three 8-inch layers or two 9-inch layers. Family recipe from Mom.",
+                    Ingredients = "2 2/3 cups sifted powdered sugar\n3/4 cup cocoa\n1/4 teaspoon salt\n1 egg\n1/4 cup soft margarine\n3 tablespoons hot water",
+                    Instructions = "1. Blend with a spoon, then beat with a beater until smooth.\n2. Can be mixed in the conventional way.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 0,
+                    Servings = 16,
+                    Category = "Frostings",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Chocolate Cupcakes",
+                    Description = "Simple chocolate cupcakes. Makes 18 cupcakes. Family recipe from Mom.",
+                    Ingredients = "1 cup sugar\n1/2 cup cocoa\n1/2 cup milk\n1/2 cup butter\n1 egg\n1 1/2 cups cake flour\n1 teaspoon baking powder\n1 teaspoon baking soda\n1/2 teaspoon salt\n1/2 cup boiling water\n1 teaspoon vanilla",
+                    Instructions = "1. Combine all ingredients in a bowl.\n2. Beat 3 minutes.\n3. Bake at 350°F for 30 minutes.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 30,
+                    Servings = 18,
+                    Category = "Desserts",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Chocolate Frosting",
+                    Description = "A creamy chocolate frosting. Makes about 2 cups. From Grandma's Chocolate Cake card.",
+                    Ingredients = "6 tablespoons margarine\n3/4 cup cocoa\n2 2/3 cups confectioners' sugar\n1/3 cup milk\n1 teaspoon vanilla",
+                    Instructions = "1. Cream margarine.\n2. Add cocoa and confectioners' sugar alternately with milk, mixing until smooth.\n3. Stir in vanilla.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 0,
+                    Servings = 16,
+                    Category = "Frostings",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                // Recipes from digitized_recipes_updated (2).pdf
+                new Recipe
+                {
+                    Title = "Herb Bread",
+                    Description = "A fragrant herb bread with basil, thyme, oregano, and nutmeg. Makes 2 loaves. Recipe from Deb Broad.",
+                    Ingredients = "2 packages yeast\n1/4 cup water\n1/4 cup sugar\n2 teaspoons salt\n1/4 cup shortening\n1 cup milk\n~2 cups flour\n2 eggs\n1/4 teaspoon basil\n1/2 teaspoon thyme\n1/2 teaspoon oregano\n1 teaspoon nutmeg\n~3 cups flour (to make soft dough)",
+                    Instructions = "1. Soften yeast in water.\n2. Scald milk and add to the other ingredients in a large mixing bowl; cool to lukewarm.\n3. Add flour to make a thick batter; add yeast; beat, then add eggs and mix well.\n4. Crumble the spices and add to batter.\n5. Add remaining flour to make a soft dough. Knead until smooth.\n6. Let rise until doubled. Punch down and shape into 2 loaves.\n7. Let rise again until doubled. Bake at 375°F for about 30-35 minutes.",
+                    PrepTimeMinutes = 180,
+                    CookTimeMinutes = 35,
+                    Servings = 16,
+                    Category = "Breads",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Biscuit Dough",
+                    Description = "Classic homemade biscuits. Makes 16 medium biscuits.",
+                    Ingredients = "2 cups unbleached all-purpose flour\n1/2 teaspoon salt\n2 teaspoons baking powder\n1/2 teaspoon cream of tartar\n2 tablespoons sugar\n1/3 cup shortening\n1/2 cup milk",
+                    Instructions = "1. Mix flour, salt, baking powder, cream of tartar, and sugar.\n2. Cut in shortening.\n3. Add milk all at once; mix quickly.\n4. Turn dough onto a lightly floured board and knead lightly.\n5. Roll to 1/2 inch; cut with biscuit cutter.\n6. Place on an ungreased cookie sheet.\n7. Bake in a hot oven at 450°F for 10–12 minutes.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 12,
+                    Servings = 16,
+                    Category = "Breads",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Easy Huevos Rancheros",
+                    Description = "Quick Mexican-style eggs with black beans, cheese, and avocado. Makes 4 main-dish servings.",
+                    Ingredients = "1 ripe medium avocado\n6 large eggs\n1/4 cup water\n1 tablespoon margarine or butter\n1 cup mild salsa\n1 can (15 to 19 ounces) black beans, rinsed and drained\n3/4 cup shredded Mexican cheese blend (3 ounces)\n8 corn tortillas, warmed",
+                    Instructions = "1. In cup, with fork, mash avocado. In bowl, with wire whisk, mix eggs and water.\n2. In nonstick 10-inch skillet, melt margarine over medium heat. Add egg mixture and cook 1 to 1 1/2 minutes or until eggs just begin to set, stirring constantly with heat-safe spatula or wooden spoon.\n3. Spoon salsa over eggs; top with beans and cheese. Cover and cook 2 to 3 minutes longer or until cheese melts and beans are heated through, but do not stir.\n4. Serve egg mixture with tortillas and avocado.",
+                    PrepTimeMinutes = 5,
+                    CookTimeMinutes = 10,
+                    Servings = 4,
+                    Category = "Breakfast",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "White Bread",
+                    Description = "Classic homemade white bread. Makes 4 loaves. Family recipe from Mom.",
+                    Ingredients = "2 packages yeast\n1/2 cup very warm water\n1/3 cup shortening\n1/3 cup sugar\n2 tablespoons salt\n2 cups hot scalded milk\n1 1/2 cups cold water\n11 to 12 cups sifted flour",
+                    Instructions = "1. Soften yeast in the warm water.\n2. Combine shortening, sugar, salt, and hot scalded milk; stir to melt shortening.\n3. Add cold water to the mixture to cool; then add yeast and mix well.\n4. Blend in 11 to 12 cups sifted flour to form a stiff dough.\n5. Knead on a floured board until smooth and satiny, 5–10 minutes (turn 1/4 turn each time; add flour as needed).\n6. Place in a greased bowl, turning dough to grease all sides lightly. Cover. Let rise in a warm place (85°–90°F) until light and doubled in size, about 2 hours.\n7. Punch down dough by plunging fist in center. Fold edges toward center; turn upside down in bowl and cover. Let rise 1/2 hour.\n8. Place dough on lightly floured board and divide into 4 parts. Mold into balls; allow to rest, closely covered with an inverted bowl, for 15 minutes.\n9. Shape into loaves. Place in greased 9 x 5 x 3-inch pans and cover. Let rise in a warm place until dough fills pans and tops of loaves are well above pan edges, about 1 1/2 hours.\n10. Bake in a moderate oven at 375°F for 45 to 50 minutes. Do not store until cold.\n\nTo shape loaves: Flatten and stretch to an 18 x 10-inch rectangle. Fold one side to center—press out air pockets; fold other side to overlap. Fold over both ends pressing out air; roll into loaf.",
+                    PrepTimeMinutes = 240,
+                    CookTimeMinutes = 50,
+                    Servings = 32,
+                    Category = "Breads",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Snickerdoodle Bars",
+                    Description = "Cinnamon-topped bar cookies. Bakes in a 9x9-inch pan. Family recipe from Mom.",
+                    Ingredients = "1 3/4 cups flour\n2 1/2 teaspoons baking powder\n1/2 cup sugar\n1/2 teaspoon salt\n1/2 cup shortening\n1 egg\n3/4 cup milk\n\nTopping:\n1/4 cup sugar\n1 tablespoon butter\n1/2 teaspoon cinnamon",
+                    Instructions = "1. Sift together flour, baking powder, sugar, and salt.\n2. Cut in shortening.\n3. Beat egg and add to milk; quickly stir into dry ingredients.\n4. Spread dough in a 9 x 9-inch pan; sprinkle with topping.\n5. Bake 20–25 minutes at 400°F.\n\nTopping: Mix 1/4 cup sugar, 1 tablespoon butter, and 1/2 teaspoon cinnamon.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 25,
+                    Servings = 16,
+                    Category = "Desserts",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Lemon Poppy Seed Bread",
+                    Description = "An easy lemon bread made with cake mix. Makes 2 loaves.",
+                    Ingredients = "1 package lemon cake mix\n1 (3-ounce) package lemon instant pudding\n1/2 cup salad oil\n1 cup water\n4 eggs\n2 tablespoons poppy seeds\n\nGlaze:\n1/4 cup sugar\n6 tablespoons lemon juice\nPowdered sugar for sprinkling",
+                    Instructions = "1. Mix cake mix, pudding, oil, water, eggs, and poppy seeds.\n2. Divide between 2 loaf pans.\n3. Bake at 350°F for 40 minutes.\n4. When done, poke holes in top and pour over 1/4 cup sugar mixed with 6 tablespoons lemon juice.\n5. Sprinkle with powdered sugar.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 40,
+                    Servings = 16,
+                    Category = "Breads",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Danish Pastry",
+                    Description = "A flaky almond-flavored pastry. Family recipe from Mom.",
+                    Ingredients = "3 cups flour\n1 cup butter\n1 teaspoon almond flavoring\n3 eggs\nWater (used in steps below)",
+                    Instructions = "1. Cut 1/2 cup butter into 1 cup flour. Add 2 tablespoons water. Shape into a ball; divide in half. Pat into 2 strips (about 10–13 inches long). Place strips 3 inches apart on an ungreased baking sheet.\n2. Mix 1/2 cup butter and 1 cup water; bring to a boil. Remove from heat and add almond flavoring.\n3. Beat in the remaining flour. Add eggs one at a time.\n4. Spread evenly over each piece of pastry.\n5. Bake in a 350°F oven for 1 hour.",
+                    PrepTimeMinutes = 60,
+                    CookTimeMinutes = 60,
+                    Servings = 12,
+                    Category = "Desserts",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
                 }
             );
 
