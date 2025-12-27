@@ -166,6 +166,46 @@
             </div>
 
             <div class="col-lg-4">
+                <!-- Verification Card -->
+                <div class="card mb-3">
+                    <div class="card-header @(Model.Recipe.IsVerified ? "bg-success" : "bg-warning") text-white">
+                        <h5 class="mb-0">
+                            @if (Model.Recipe.IsVerified)
+                            {
+                                <i class="bi bi-check-circle-fill"></i> <text>Verified</text>
+                            }
+                            else
+                            {
+                                <i class="bi bi-exclamation-circle"></i> <text>Not Verified</text>
+                            }
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Recipe.IsVerified)
+                        {
+                            <p class="text-success mb-0">
+                                <i class="bi bi-check-lg"></i> This recipe has been verified.
+                            </p>
+                            @if (Model.Recipe.VerifiedAt.HasValue)
+                            {
+                                <p class="text-muted small mt-2 mb-0">
+                                    Verified on @Model.Recipe.VerifiedAt.Value.ToString("MMMM d, yyyy h:mm tt")
+                                </p>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted mb-3">This recipe has not been verified yet.</p>
+                            <form method="post" asp-page-handler="Verify">
+                                <input type="hidden" name="id" value="@Model.Recipe.Id" />
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="bi bi-check-circle"></i> Verify Recipe
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-header bg-secondary text-white">
                         <h5 class="mb-0"><i class="bi bi-clock-history"></i> History</h5>

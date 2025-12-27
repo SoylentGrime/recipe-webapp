@@ -123,4 +123,21 @@ public class EditModel : PageModel
     {
         return await _context.Recipes.AnyAsync(r => r.Id == id);
     }
+
+    public async Task<IActionResult> OnPostVerifyAsync(int id)
+    {
+        var recipe = await _context.Recipes.FindAsync(id);
+
+        if (recipe == null)
+        {
+            return NotFound();
+        }
+
+        recipe.IsVerified = true;
+        recipe.VerifiedAt = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage(new { id });
+    }
 }

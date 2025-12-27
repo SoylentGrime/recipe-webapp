@@ -105,7 +105,13 @@
                             </div>
                         }
                         <div class="card-body">
-                            <h5 class="card-title">@recipe.Title</h5>
+                            <h5 class="card-title">
+                                @recipe.Title
+                                @if (recipe.IsVerified)
+                                {
+                                    <i class="bi bi-check-circle-fill text-success" title="Verified Recipe"></i>
+                                }
+                            </h5>
                             @if (!string.IsNullOrEmpty(recipe.Category))
                             {
                                 <span class="badge bg-info mb-2">@recipe.Category</span>
