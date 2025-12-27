@@ -4,6 +4,7 @@
 [Dd]ebug/
 [Rr]elease/
 publish/
+out/
 
 # IDE
 .vs/
@@ -12,30 +13,99 @@ publish/
 *.suo
 *.userosscache
 *.sln.docstates
+.idea/
+*.swp
+*.swo
+*~
+
+# Visual Studio solution files (generated per-machine)
+*.sln
 
 # User secrets
 secrets.json
+
+# Application settings - keep template only
+appsettings.json
+appsettings.*.json
+!appsettings.Template.json
 
 # SQLite database
 *.db
 *.db-shm
 *.db-wal
+*.sqlite
+*.sqlite3
 
 # Logs
 *.log
 logs/
+Logs/
 
 # OS files
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Azure
 *.pubxml
 *.publishsettings
+*.azurePubxml
 
 # Deployment
 deploy.zip
+web.config
 
 # Package manager
 node_modules/
 packages/
+
+# .NET Core / ASP.NET Core
+*.deps.json
+*.runtimeconfig.json
+project.lock.json
+project.fragment.lock.json
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+nuget.exe
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+TestResults/
+coverage*/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# dotnet tool manifest
+.config/dotnet-tools.json
+
+# User-specific files
+*.rsuser
+*.pidb
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
+
+# Backup files
+*.bak
+*.orig
+
