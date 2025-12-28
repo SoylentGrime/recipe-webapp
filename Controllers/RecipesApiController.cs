@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Recipe_Webpage.Data;
+using Recipe_Webpage.Services;
 using RecipeApp.Models;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,10 +16,12 @@ namespace Recipe_Webpage.Controllers;
 public class RecipesApiController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IImageService _imageService;
 
-    public RecipesApiController(ApplicationDbContext context)
+    public RecipesApiController(ApplicationDbContext context, IImageService imageService)
     {
         _context = context;
+        _imageService = imageService;
     }
 
     /// <summary>
@@ -174,7 +177,6 @@ public class RecipesApiController : ControllerBase
             CookTimeMinutes = request.CookTimeMinutes,
             Servings = request.Servings,
             Category = request.Category,
-            ImageUrl = request.ImageUrl,
             CreatedAt = DateTime.UtcNow,
             IsVerified = false
         };
@@ -242,10 +244,127 @@ public class RecipesApiController : ControllerBase
         if (request.CookTimeMinutes.HasValue) recipe.CookTimeMinutes = request.CookTimeMinutes.Value;
         if (request.Servings.HasValue) recipe.Servings = request.Servings.Value;
         if (request.Category != null) recipe.Category = request.Category;
-        if (request.ImageUrl != null) recipe.ImageUrl = request.ImageUrl;
         
         recipe.UpdatedAt = DateTime.UtcNow;
 
+        await _context.SaveChangesAsync();
+
+        return Ok(new RecipeDto
+        {
+            Id = recipe.Id,
+            Title = recipe.Title,
+            Description = recipe.Description,
+            Ingredients = recipe.Ingredients,
+            Instructions = recipe.Instructions,
+            PrepTimeMinutes = recipe.PrepTimeMinutes,
+            CookTimeMinutes = recipe.CookTimeMinutes,
+            Servings = recipe.Servings,
+            Category = recipe.Category,
+            ImageUrl = recipe.ImageUrl,
+            IsVerified = recipe.IsVerified,
+            CreatedAt = recipe.CreatedAt,
+            UpdatedAt = recipe.UpdatedAt
+        });
+    }
+
+    /// <summary>
+    /// Upload an image for a recipe
+    /// </summary>
+    /// <param name="id">The recipe ID</param>
+    /// <param name="file">The image file to upload (jpg, jpeg, png, gif, webp - max 5MB)</param>
+    /// <returns>The updated recipe with image URL</returns>
+    /// <response code="200">Image uploaded successfully</response>
+    /// <response code="400">Invalid image file</response>
+    /// <response code="404">Recipe not found</response>
+    [HttpPost("{id}/image", Name = "UploadRecipeImage")]
+    [Consumes("multipart/form-data")]
+    [ProducesResponseType(typeof(RecipeDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<RecipeDto>> UploadRecipeImage(int id, IFormFile file)
+    {
+        var recipe = await _context.Recipes.FindAsync(id);
+
+        if (recipe == null)
+        {
+            return NotFound(new ErrorResponse { Error = "Recipe not found", Message = $"No recipe exists with ID {id}" });
+        }
+
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest(new ErrorResponse { Error = "No file provided", Message = "Please provide an image file to upload" });
+        }
+
+        if (!_imageService.IsValidImage(file))
+        {
+            return BadRequest(new ErrorResponse 
+            { 
+                Error = "Invalid image", 
+                Message = $"Invalid image file. Allowed types: {string.Join(", ", _imageService.AllowedExtensions)}. Max size: {_imageService.MaxFileSize / (1024 * 1024)}MB" 
+            });
+        }
+
+        // Delete old image if exists
+        if (!string.IsNullOrEmpty(recipe.ImageUrl) && recipe.ImageUrl.StartsWith("/images/recipes/"))
+        {
+            await _imageService.DeleteImageAsync(recipe.ImageUrl);
+        }
+
+        var imageUrl = await _imageService.UploadImageAsync(file, recipe.Id);
+        if (imageUrl == null)
+        {
+            return BadRequest(new ErrorResponse { Error = "Upload failed", Message = "Failed to upload image. Please try again." });
+        }
+
+        recipe.ImageUrl = imageUrl;
+        recipe.UpdatedAt = DateTime.UtcNow;
+        await _context.SaveChangesAsync();
+
+        return Ok(new RecipeDto
+        {
+            Id = recipe.Id,
+            Title = recipe.Title,
+            Description = recipe.Description,
+            Ingredients = recipe.Ingredients,
+            Instructions = recipe.Instructions,
+            PrepTimeMinutes = recipe.PrepTimeMinutes,
+            CookTimeMinutes = recipe.CookTimeMinutes,
+            Servings = recipe.Servings,
+            Category = recipe.Category,
+            ImageUrl = recipe.ImageUrl,
+            IsVerified = recipe.IsVerified,
+            CreatedAt = recipe.CreatedAt,
+            UpdatedAt = recipe.UpdatedAt
+        });
+    }
+
+    /// <summary>
+    /// Delete the image for a recipe
+    /// </summary>
+    /// <param name="id">The recipe ID</param>
+    /// <returns>The updated recipe without image</returns>
+    /// <response code="200">Image deleted successfully</response>
+    /// <response code="404">Recipe not found</response>
+    [HttpDelete("{id}/image", Name = "DeleteRecipeImage")]
+    [ProducesResponseType(typeof(RecipeDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<RecipeDto>> DeleteRecipeImage(int id)
+    {
+        var recipe = await _context.Recipes.FindAsync(id);
+
+        if (recipe == null)
+        {
+            return NotFound(new ErrorResponse { Error = "Recipe not found", Message = $"No recipe exists with ID {id}" });
+        }
+
+        // Delete old image if exists
+        if (!string.IsNullOrEmpty(recipe.ImageUrl) && recipe.ImageUrl.StartsWith("/images/recipes/"))
+        {
+            await _imageService.DeleteImageAsync(recipe.ImageUrl);
+        }
+
+        recipe.ImageUrl = null;
+        recipe.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
 
         return Ok(new RecipeDto
@@ -400,11 +519,6 @@ public class CreateRecipeRequest
     /// <example>Cookies</example>
     [StringLength(100)]
     public string? Category { get; set; }
-
-    /// <summary>URL to recipe image</summary>
-    /// <example>/images/recipes/chocolate-chip-cookies.jpg</example>
-    [StringLength(500)]
-    public string? ImageUrl { get; set; }
 }
 
 /// <summary>
@@ -449,11 +563,6 @@ public class UpdateRecipeRequest
     /// <example>Cookies</example>
     [StringLength(100)]
     public string? Category { get; set; }
-
-    /// <summary>URL to recipe image</summary>
-    /// <example>/images/recipes/chocolate-chip-cookies.jpg</example>
-    [StringLength(500)]
-    public string? ImageUrl { get; set; }
 }
 
 /// <summary>

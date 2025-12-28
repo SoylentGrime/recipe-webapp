@@ -61,7 +61,7 @@
                                 <h6 class="mb-0"><i class="bi bi-image"></i> Recipe Image</h6>
                             </div>
                             <div class="card-body">
-                                <div class="mb-3">
+                                <div class="mb-0">
                                     <label asp-for="ImageFile" class="form-label">
                                         <i class="bi bi-upload"></i> Upload Image
                                     </label>
@@ -70,17 +70,6 @@
                                     <span asp-validation-for="ImageFile" class="text-danger"></span>
                                     <div class="form-text">
                                         Allowed: @string.Join(", ", Model.AllowedExtensions) | Max size: @Model.MaxFileSizeMB MB
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-0">
-                                    <label asp-for="Recipe.ImageUrl" class="form-label">
-                                        <i class="bi bi-link-45deg"></i> Or Enter Image URL
-                                    </label>
-                                    <input asp-for="Recipe.ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
-                                    <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
-                                    <div class="form-text">
-                                        If you upload an image, it will be used instead of the URL.
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +136,7 @@
                         <li class="mb-2">Be specific with ingredient measurements</li>
                         <li class="mb-2">Include temperature and time in instructions</li>
                         <li class="mb-2">Use clear, numbered steps</li>
-                        <li class="mb-2">Add a photo URL to make the recipe more appealing</li>
+                        <li class="mb-2">Upload a photo to make the recipe more appealing</li>
                         <li>Choose a category to help users find your recipe</li>
                     </ul>
                 </div>

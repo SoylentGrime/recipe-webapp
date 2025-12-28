@@ -84,26 +84,15 @@
                                         </div>
                                     }
                                     
-                                    <div class="mb-3">
+                                    <div class="mb-0">
                                         <label asp-for="ImageFile" class="form-label">
-                                            <i class="bi bi-upload"></i> Upload New Image
+                                            <i class="bi bi-upload"></i> @(string.IsNullOrEmpty(Model.Recipe.ImageUrl) ? "Upload Image" : "Upload New Image")
                                         </label>
                                         <input asp-for="ImageFile" class="form-control" type="file" 
                                                accept="@string.Join(",", Model.AllowedExtensions)" />
                                         <span asp-validation-for="ImageFile" class="text-danger"></span>
                                         <div class="form-text">
                                             Allowed: @string.Join(", ", Model.AllowedExtensions) | Max size: @Model.MaxFileSizeMB MB
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="mb-0">
-                                        <label asp-for="Recipe.ImageUrl" class="form-label">
-                                            <i class="bi bi-link-45deg"></i> Or Enter Image URL
-                                        </label>
-                                        <input asp-for="Recipe.ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
-                                        <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
-                                        <div class="form-text">
-                                            If you upload a new image, it will replace this URL.
                                         </div>
                                     </div>
                                 </div>

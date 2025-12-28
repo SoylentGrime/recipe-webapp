@@ -87,11 +87,7 @@ public class EditModel : PageModel
                 return Page();
             }
         }
-        else
-        {
-            // Keep the existing ImageUrl from the form if no new file was uploaded
-            recipeToUpdate.ImageUrl = Recipe.ImageUrl;
-        }
+        // If no new file uploaded, keep the existing image (don't change it)
 
         recipeToUpdate.Title = Recipe.Title;
         recipeToUpdate.Description = Recipe.Description;
