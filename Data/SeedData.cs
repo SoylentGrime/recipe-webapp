@@ -1082,6 +1082,111 @@ public static class SeedData
                     Category = "Breads",
                     ImageUrl = null,
                     CreatedAt = DateTime.UtcNow
+                },
+                // New recipes from digitized_recipes (2).pdf
+                new Recipe
+                {
+                    Title = "Original NESTLÉ TOLL HOUSE Cookies",
+                    Description = "The classic chocolate chip cookie recipe from NESTLÉ. Makes about 100 cookies.",
+                    Ingredients = "2 1/4 cups all-purpose flour\n1 teaspoon baking soda\n1 teaspoon salt\n1 cup butter, softened\n3/4 cup sugar\n3/4 cup firmly packed brown sugar\n1 teaspoon vanilla extract\n2 eggs\n2 cups (12 oz) NESTLÉ TOLL HOUSE chocolate morsels\n1 cup chopped nuts (optional)",
+                    Instructions = "1. Preheat oven to 375°F.\n2. In a small bowl, combine flour, baking soda, and salt. Set aside.\n3. In a large bowl, cream butter, sugar, brown sugar, and vanilla extract until creamy.\n4. Beat in eggs, one at a time.\n5. Gradually add flour mixture; mix well.\n6. Stir in morsels and nuts (if using).\n7. Drop by rounded tablespoon onto ungreased cookie sheets.\n8. Bake 8–10 minutes or until golden brown.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 10,
+                    Servings = 100,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Butter Cookies (for press)",
+                    Description = "Classic butter cookies perfect for a cookie press. Can be tinted with food coloring.",
+                    Ingredients = "1 cup soft butter\n1/2 cup sugar\n1 egg\n3 teaspoons flavoring (vanilla, almond, or lemon)\n3 cups flour, sifted\n1/2 teaspoon baking powder\n1/2 teaspoon salt\nFood coloring (optional)",
+                    Instructions = "1. Mix together thoroughly: butter, sugar, and egg.\n2. Add flavoring, then add sifted flour, baking powder, and salt; mix to combine.\n3. Press onto ungreased baking sheet using a cookie press.\n4. Bake at 425°F for 5–7 minutes.\n\nNote: You can add coloring with the flavoring. Use butter, not margarine—or at least 3/4 butter.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 7,
+                    Servings = 48,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Cinnamon Crisps",
+                    Description = "Crispy refrigerator cookies with cinnamon, orange peel, and pecans. Recipe from Mom. Makes 4 dozen.",
+                    Ingredients = "1/2 cup butter or margarine\n1 cup brown sugar\n1 egg\n1 tablespoon shredded orange peel\n1 1/2 cups sifted flour\n1 teaspoon baking powder\n1 teaspoon cinnamon\n1/4 teaspoon salt\n1/2 cup bran flakes\n1/4 cup chopped pecans",
+                    Instructions = "1. Cream butter (or margarine) and brown sugar.\n2. Beat in egg and orange peel.\n3. Sift together flour, baking powder, cinnamon, and salt; add and blend.\n4. Stir in bran flakes and pecans.\n5. Chill 1 hour.\n6. Shape into two long 1 1/2-inch rolls; wrap in waxed paper and chill well.\n7. Slice 1/8–1/4 inch thick.\n8. Place on greased cookie sheet; bake at 350°F for 8–10 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 10,
+                    Servings = 48,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Chocolate Cookies (for press)",
+                    Description = "Rich chocolate cookies perfect for a cookie press. Recipe from Mom. Makes 6 dozen.",
+                    Ingredients = "1 cup shortening\n1 cup sugar\n3 squares unsweetened chocolate\n1 egg\n2 tablespoons milk\n1 teaspoon vanilla\n2 1/2 cups flour\n1/4 teaspoon salt\n1/4 teaspoon baking soda",
+                    Instructions = "1. Cream shortening and sugar.\n2. Melt unsweetened chocolate; add to creamed mixture.\n3. Add egg, milk, and vanilla.\n4. Sift together flour, salt, and baking soda; add to mixture.\n5. Use a cookie press to form cookies on cookie sheets.\n6. Bake at 400°F for 10–12 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 12,
+                    Servings = 72,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Shortening Cookies (Ladies Favorite)",
+                    Description = "A classic rolled cookie recipe, perfect for cut-out shapes.",
+                    Ingredients = "1/2 cup shortening\n1 cup sugar\n1 egg\n1/2 teaspoon vanilla\n3 cups flour\n1/4 teaspoon salt\n3 teaspoons baking powder\n1/2 cup milk",
+                    Instructions = "1. Cream shortening and sugar; add egg and vanilla.\n2. Sift together flour, salt, and baking powder; add alternately with milk.\n3. Roll 1/8 inch thick on a floured surface (use flour on top of dough and on rolling pin to prevent sticking).\n4. Cut out shapes.\n5. Bake on a greased baking sheet at 375°F for 10–15 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 15,
+                    Servings = 48,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Caramel Frosting",
+                    Description = "A quick and delicious caramel frosting for cakes and bars.",
+                    Ingredients = "2 tablespoons butter or margarine\n1/3 cup brown sugar\n1 tablespoon water\n1 teaspoon vanilla\n1 cup sifted confectioners' sugar",
+                    Instructions = "1. Combine butter (or margarine) and brown sugar in a saucepan. Bring to a boil; remove from heat.\n2. Add water and vanilla.\n3. Stir in sifted confectioners' sugar.\n4. Spread immediately on baked layer.",
+                    PrepTimeMinutes = 10,
+                    CookTimeMinutes = 5,
+                    Servings = 12,
+                    Category = "Frostings",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "BEST Sugar Cookies (Hot Rolled)",
+                    Description = "The best sugar cookies—rolled in sugar before baking for a crispy exterior. Makes 5–6 dozen.",
+                    Ingredients = "1 cup shortening\n1 cup sugar\n1 cup salad oil\n2 eggs\n1 teaspoon vanilla\n1 teaspoon salt\n5 cups flour\n2 teaspoons baking soda\n2 teaspoons cream of tartar\nAdditional sugar for rolling",
+                    Instructions = "1. Cream shortening and sugar.\n2. Add salad oil; beat into mixture.\n3. Add eggs and vanilla.\n4. Sift together flour, salt, baking soda, and cream of tartar; blend into mixture.\n5. Roll dough into walnut-size balls; roll balls in sugar.\n6. Place on greased baking sheet and flatten balls with the bottom of a glass dipped in sugar.\n7. Bake at 350°F for about 10 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 10,
+                    Servings = 66,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Caramel Frosted Bars",
+                    Description = "Delicious almond bars topped with caramel frosting. Recipe from Mom. Makes 2 dozen.",
+                    Ingredients = "6 tablespoons butter or margarine\n3/4 cup sugar\n1 egg\n3/4 teaspoon vanilla\n1 1/4 cups flour\n1/2 teaspoon baking soda\n1/2 teaspoon salt\n1/4 cup chopped almonds\nCaramel Frosting (see separate recipe)",
+                    Instructions = "1. Cream butter (or margarine) and sugar in mixer.\n2. Beat in egg and vanilla.\n3. Sift together flour, baking soda, and salt; add to mixture.\n4. Stir in chopped almonds.\n5. Spread in greased 9×9-inch pan.\n6. Bake at 375°F for 20–25 minutes.\n7. Cool slightly; spread with Caramel Frosting.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 25,
+                    Servings = 24,
+                    Category = "Bars",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
                 }
             );
 
