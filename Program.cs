@@ -47,6 +47,13 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
+    // Add server URL for Custom GPT Actions compatibility
+    options.AddServer(new OpenApiServer
+    {
+        Url = "https://recipe-webapp-sg2024.azurewebsites.net",
+        Description = "Production server"
+    });
+
     // Include XML comments for better OpenAPI documentation
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
