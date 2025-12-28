@@ -384,6 +384,131 @@ public class RecipesApiController : ControllerBase
             UpdatedAt = recipe.UpdatedAt
         });
     }
+
+    /// <summary>
+    /// Upload an image for a recipe using base64 encoded data (for ChatGPT/API clients)
+    /// </summary>
+    /// <param name="id">The recipe ID</param>
+    /// <param name="request">The base64 encoded image data</param>
+    /// <returns>The updated recipe with image URL</returns>
+    /// <response code="200">Image uploaded successfully</response>
+    /// <response code="400">Invalid image data</response>
+    /// <response code="404">Recipe not found</response>
+    [HttpPut("{id}/image", Name = "UploadRecipeImageBase64")]
+    [ProducesResponseType(typeof(RecipeDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<RecipeDto>> UploadRecipeImageBase64(int id, [FromBody] UploadImageBase64Request request)
+    {
+        var recipe = await _context.Recipes.FindAsync(id);
+
+        if (recipe == null)
+        {
+            return NotFound(new ErrorResponse { Error = "Recipe not found", Message = $"No recipe exists with ID {id}" });
+        }
+
+        if (string.IsNullOrWhiteSpace(request.ImageBase64))
+        {
+            return BadRequest(new ErrorResponse { Error = "No image data", Message = "Please provide base64 encoded image data" });
+        }
+
+        // Validate and parse the base64 data
+        byte[] imageBytes;
+        string extension;
+        try
+        {
+            // Handle data URL format: data:image/jpeg;base64,/9j/4AAQ...
+            var base64Data = request.ImageBase64;
+            if (base64Data.Contains(","))
+            {
+                var parts = base64Data.Split(',');
+                var header = parts[0].ToLower();
+                base64Data = parts[1];
+                
+                // Determine extension from MIME type
+                if (header.Contains("image/jpeg") || header.Contains("image/jpg"))
+                    extension = ".jpg";
+                else if (header.Contains("image/png"))
+                    extension = ".png";
+                else if (header.Contains("image/gif"))
+                    extension = ".gif";
+                else if (header.Contains("image/webp"))
+                    extension = ".webp";
+                else
+                    return BadRequest(new ErrorResponse { Error = "Invalid image type", Message = "Allowed types: jpg, jpeg, png, gif, webp" });
+            }
+            else
+            {
+                // Default to jpg if no header
+                extension = !string.IsNullOrWhiteSpace(request.FileName) 
+                    ? Path.GetExtension(request.FileName).ToLowerInvariant() 
+                    : ".jpg";
+                
+                if (!new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" }.Contains(extension))
+                    extension = ".jpg";
+            }
+
+            imageBytes = Convert.FromBase64String(base64Data);
+        }
+        catch (FormatException)
+        {
+            return BadRequest(new ErrorResponse { Error = "Invalid base64", Message = "The provided data is not valid base64" });
+        }
+
+        // Check file size (5MB max)
+        if (imageBytes.Length > 5 * 1024 * 1024)
+        {
+            return BadRequest(new ErrorResponse { Error = "File too large", Message = "Maximum file size is 5MB" });
+        }
+
+        // Save the image
+        try
+        {
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "recipes");
+            if (!Directory.Exists(uploadsPath))
+            {
+                Directory.CreateDirectory(uploadsPath);
+            }
+
+            var timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+            var uniqueId = Guid.NewGuid().ToString("N")[..8];
+            var fileName = $"recipe-{id}-{timestamp}-{uniqueId}{extension}";
+            var filePath = Path.Combine(uploadsPath, fileName);
+
+            await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
+
+            // Delete old image if exists
+            if (!string.IsNullOrEmpty(recipe.ImageUrl) && recipe.ImageUrl.StartsWith("/images/recipes/"))
+            {
+                await _imageService.DeleteImageAsync(recipe.ImageUrl);
+            }
+
+            recipe.ImageUrl = $"/images/recipes/{fileName}";
+            recipe.UpdatedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            return Ok(new RecipeDto
+            {
+                Id = recipe.Id,
+                Title = recipe.Title,
+                Description = recipe.Description,
+                Ingredients = recipe.Ingredients,
+                Instructions = recipe.Instructions,
+                PrepTimeMinutes = recipe.PrepTimeMinutes,
+                CookTimeMinutes = recipe.CookTimeMinutes,
+                Servings = recipe.Servings,
+                Category = recipe.Category,
+                ImageUrl = recipe.ImageUrl,
+                IsVerified = recipe.IsVerified,
+                CreatedAt = recipe.CreatedAt,
+                UpdatedAt = recipe.UpdatedAt
+            });
+        }
+        catch (Exception)
+        {
+            return BadRequest(new ErrorResponse { Error = "Upload failed", Message = "Failed to save image. Please try again." });
+        }
+    }
 }
 
 #region DTOs for OpenAPI Schema
@@ -577,6 +702,21 @@ public class ErrorResponse
     /// <summary>Detailed error message</summary>
     /// <example>No recipe exists with ID 999</example>
     public string Message { get; set; } = string.Empty;
+}
+
+/// <summary>
+/// Request to upload an image using base64 encoding
+/// </summary>
+public class UploadImageBase64Request
+{
+    /// <summary>Base64 encoded image data. Can include data URL prefix (e.g., data:image/jpeg;base64,...) or just the base64 string</summary>
+    /// <example>data:image/jpeg;base64,/9j/4AAQSkZJRg...</example>
+    [Required]
+    public string ImageBase64 { get; set; } = string.Empty;
+
+    /// <summary>Optional filename with extension to determine image type (e.g., recipe.jpg)</summary>
+    /// <example>my-recipe-photo.jpg</example>
+    public string? FileName { get; set; }
 }
 
 #endregion
