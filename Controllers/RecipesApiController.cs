@@ -30,7 +30,7 @@ public class RecipesApiController : ControllerBase
     /// <param name="offset">Number of recipes to skip for pagination</param>
     /// <returns>List of recipes matching the criteria</returns>
     /// <response code="200">Returns the list of recipes</response>
-    [HttpGet]
+    [HttpGet(Name = "GetRecipes")]
     [ProducesResponseType(typeof(RecipeListResponse), StatusCodes.Status200OK)]
     public async Task<ActionResult<RecipeListResponse>> GetRecipes(
         [FromQuery] string? search = null,
@@ -94,7 +94,7 @@ public class RecipesApiController : ControllerBase
     /// <returns>The recipe details</returns>
     /// <response code="200">Returns the recipe</response>
     /// <response code="404">Recipe not found</response>
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetRecipeById")]
     [ProducesResponseType(typeof(RecipeDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<RecipeDto>> GetRecipe(int id)
@@ -129,7 +129,7 @@ public class RecipesApiController : ControllerBase
     /// </summary>
     /// <returns>List of unique categories</returns>
     /// <response code="200">Returns the list of categories</response>
-    [HttpGet("categories")]
+    [HttpGet("categories", Name = "GetCategories")]
     [ProducesResponseType(typeof(CategoriesResponse), StatusCodes.Status200OK)]
     public async Task<ActionResult<CategoriesResponse>> GetCategories()
     {
@@ -150,7 +150,7 @@ public class RecipesApiController : ControllerBase
     /// <returns>The created recipe</returns>
     /// <response code="201">Recipe created successfully</response>
     /// <response code="400">Invalid recipe data</response>
-    [HttpPost]
+    [HttpPost(Name = "CreateRecipe")]
     [ProducesResponseType(typeof(RecipeDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<RecipeDto>> CreateRecipe([FromBody] CreateRecipeRequest request)
@@ -211,7 +211,7 @@ public class RecipesApiController : ControllerBase
     /// <response code="200">Recipe updated successfully</response>
     /// <response code="400">Invalid recipe data</response>
     /// <response code="404">Recipe not found</response>
-    [HttpPut("{id}")]
+    [HttpPut("{id}", Name = "UpdateRecipe")]
     [ProducesResponseType(typeof(RecipeDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
