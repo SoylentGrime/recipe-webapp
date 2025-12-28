@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Recipe_Webpage;
 using Recipe_Webpage.Data;
 using Recipe_Webpage.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,56 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Register the image service
 builder.Services.AddScoped<IImageService, ImageService>();
+
+// Add API Controllers
+builder.Services.AddControllers();
+
+// Add OpenAPI/Swagger for Custom GPT Actions compatibility
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Recipe Book API",
+        Version = "v1",
+        Description = "API for managing recipes. Compatible with OpenAI Custom GPT Actions.",
+        Contact = new OpenApiContact
+        {
+            Name = "Recipe Book",
+            Url = new Uri("https://recipe-webapp-sg2024.azurewebsites.net")
+        }
+    });
+
+    // Include XML comments for better OpenAPI documentation
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+});
+
+// Add CORS for Custom GPT Actions
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowGPT", policy =>
+    {
+        policy.WithOrigins(
+                "https://chat.openai.com",
+                "https://chatgpt.com"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+    
+    // Allow all origins for API access (can be restricted later)
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => 
 {
@@ -59,6 +111,18 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
+
+// Enable Swagger for all environments (needed for Custom GPT Actions)
+app.UseSwagger(options =>
+{
+    options.RouteTemplate = "api/swagger/{documentName}/swagger.json";
+});
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Recipe Book API v1");
+    options.RoutePrefix = "api/docs";
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -72,6 +136,9 @@ else
 
 app.UseHttpsRedirection();
 
+// Enable CORS for API endpoints
+app.UseCors("AllowAll");
+
 app.UseRouting();
 
 app.UseAuthentication();
@@ -79,5 +146,6 @@ app.UseAuthorization();
 
 app.UseStaticFiles();
 app.MapRazorPages();
+app.MapControllers(); // Map API controllers
 
 app.Run();
