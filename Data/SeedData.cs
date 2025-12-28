@@ -885,6 +885,203 @@ public static class SeedData
                     Category = "Main Dishes",
                     ImageUrl = null,
                     CreatedAt = DateTime.UtcNow
+                },
+                // Recipes from digitized_recipes_updated.pdf
+                new Recipe
+                {
+                    Title = "Butterscotch Refrigerator Cookies",
+                    Description = "Classic slice-and-bake refrigerator cookies with rich butterscotch flavor. Family recipe from Mom.",
+                    Ingredients = "1 cup shortening\n1 1/4 cups brown sugar\n1 teaspoon vanilla\n2 eggs\n3 cups flour\n3 teaspoons baking powder\n1/2 teaspoon salt",
+                    Instructions = "1. Cream shortening, brown sugar, and vanilla.\n2. Add eggs, one at a time.\n3. Sift together flour, baking powder, and salt; add to creamed mixture.\n4. Shape dough into rolls about 2 inches in diameter. Chill thoroughly.\n5. Slice into 1/8-inch slices and bake on an ungreased cookie sheet at 400°F for about 8 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 8,
+                    Servings = 48,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Molasses Sugar Cookies",
+                    Description = "Soft and chewy molasses cookies with warm spices. Family recipe from Mom.",
+                    Ingredients = "3/4 cup shortening\n1 cup sugar\n1/4 cup molasses\n1 egg\n2 teaspoons baking soda\n2 cups flour\n1/2 teaspoon ginger\n1/2 teaspoon cloves\n1 teaspoon cinnamon\n1/2 teaspoon salt\nExtra sugar for rolling",
+                    Instructions = "1. Melt the shortening; cool.\n2. Add sugar, molasses, and egg; mix well.\n3. Sift together baking soda, flour, ginger, cloves, cinnamon, and salt; add to wet mixture.\n4. Chill dough.\n5. Form into 1-inch balls; roll in sugar.\n6. Bake at 375°F for 8–10 minutes or until set.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 10,
+                    Servings = 36,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Peanut Butter Cookies (Betty Crocker)",
+                    Description = "Classic peanut butter cookies with the traditional crisscross fork pattern. About 3 dozen cookies.",
+                    Ingredients = "1/2 cup shortening (or half butter)\n1/2 cup peanut butter\n1/2 cup sugar\n1/2 cup brown sugar\n1 egg\n1 1/4 cups sifted flour\n1/2 teaspoon baking powder\n3/4 teaspoon baking soda\n1/4 teaspoon salt",
+                    Instructions = "1. Cream shortening, peanut butter, and sugars.\n2. Add egg and mix well.\n3. Sift together flour, baking powder, baking soda, and salt; add to creamed mixture.\n4. Chill dough.\n5. Roll into balls.\n6. Place about 3 inches apart on a greased baking sheet.\n7. Flatten with a fork in a crisscross pattern.\n8. Bake at 375°F for 10–12 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 12,
+                    Servings = 36,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Peanut Butter Blossoms",
+                    Description = "Classic peanut butter cookies topped with Hershey's Kisses. A holiday favorite!",
+                    Ingredients = "HERSHEY'S KISSES Milk Chocolates (unwrapped)\n1/2 cup shortening\n1/2 cup creamy peanut butter\n1/2 cup granulated sugar\n1/2 cup packed light brown sugar\n1 egg\n2 tablespoons milk\n1 teaspoon vanilla extract\n1 1/2 cups all-purpose flour\n1 teaspoon baking soda\n1/2 teaspoon salt\n1/3 cup granulated sugar (for rolling)",
+                    Instructions = "1. Heat oven to 375°F. Remove wrappers from chocolates.\n2. Beat shortening and peanut butter in a large bowl until well blended.\n3. Add 1/2 cup granulated sugar and brown sugar; beat until fluffy.\n4. Add egg, milk, and vanilla; beat well.\n5. Stir together flour, baking soda, and salt; gradually beat into peanut butter mixture.\n6. Shape dough into 1-inch balls. Roll in granulated sugar; place on ungreased cookie sheet.\n7. Bake 8–10 minutes or until lightly browned.\n8. Immediately press a chocolate into the center of each cookie (cookie will crack around edges).\n9. Remove to a wire rack; cool completely.",
+                    PrepTimeMinutes = 25,
+                    CookTimeMinutes = 10,
+                    Servings = 48,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Thumbprint Cookies",
+                    Description = "Buttery cookies with a jam-filled center. Recipe from SugarSpunRun.com. Makes 24 cookies.",
+                    Ingredients = "1 cup unsalted butter, softened (226g)\n1/2 cup sugar (70g)\n1/2 cup light brown sugar, lightly packed (70g)\n3/4 teaspoon vanilla extract\n1 large egg yolk\n2 1/2 cups all-purpose flour (280g)\n2 teaspoons cornstarch\n1/2 teaspoon salt\n1/2 cup sugar for rolling (optional)\n1/2 cup jam or preserves (raspberry recommended)",
+                    Instructions = "1. Beat butter until creamy.\n2. Add sugars; beat until combined (about 30–60 seconds).\n3. Add egg yolk and vanilla; beat well.\n4. Whisk together flour, cornstarch, and salt.\n5. Gradually add flour mixture to wet ingredients until combined. Use your hands to finish working the dough together.\n6. Scoop cookie dough into 1 tablespoon-sized balls and roll well (so the dough is round with no cracks).\n7. Roll in granulated sugar (if using) and place on a wax-paper covered plate. Use your thumb or the rounded back of a teaspoon to gently press an indent in the center of each ball.\n8. Transfer cookie dough to freezer and chill for 30 minutes.\n9. Preheat oven to 375°F. Heat jam briefly in microwave until easy to stir.\n10. Spoon jam into each thumbprint, filling each indent to the brim.\n11. Place cookies at least 2 inches apart on a parchment paper-lined cookie sheet and bake at 375°F for 11 minutes or until edges are just beginning to turn golden brown.\n12. Allow cookies to cool completely on baking sheet before enjoying.",
+                    PrepTimeMinutes = 30,
+                    CookTimeMinutes = 11,
+                    Servings = 24,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "My Favorite Butter Cookies",
+                    Description = "Rich almond-flavored butter cookies perfect for cookie press or cut-outs. Makes about 6 dozen. Don't use instant flour!",
+                    Ingredients = "1 1/2 cups butter\n1 cup sugar\n1 egg\n1 teaspoon almond extract\n4 cups flour (don't use instant flour)\n1 teaspoon baking powder\nFood coloring (optional)",
+                    Instructions = "1. Heat oven to 375°F.\n2. Cream butter and sugar.\n3. Add egg and almond extract (and food coloring, if using).\n4. Add flour and baking powder; mix to form dough.\n5. Shape cookies using cookie press or cut-outs.\n6. Bake on an ungreased cookie sheet for 6–8 minutes or until set.",
+                    PrepTimeMinutes = 25,
+                    CookTimeMinutes = 8,
+                    Servings = 72,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                // Recipes from digitized_recipes (1).pdf
+                new Recipe
+                {
+                    Title = "Ranger Cookies",
+                    Description = "Crispy cookies loaded with oats, Rice Krispies, and coconut. Family recipe from Mom. Makes 3 dozen.",
+                    Ingredients = "1 cup butter\n1 cup white sugar\n1 cup brown sugar\n2 eggs\n1 teaspoon vanilla\n2 cups flour\n1 teaspoon baking soda\n1/2 teaspoon baking powder\n1/2 teaspoon salt\n2 cups quick oats\n2 cups Rice Krispies\n1 cup shredded coconut",
+                    Instructions = "1. Cream butter, white sugar, and brown sugar well. Add eggs and vanilla; mix until smooth.\n2. Sift together flour, baking soda, baking powder, and salt. Add to creamed mixture and mix.\n3. Stir in oats, Rice Krispies, and shredded coconut.\n4. Dough is crumbly. Mold into balls the size of a walnut and place on a greased cookie sheet.\n5. Press each ball with a fork. Bake at 350°F until done.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 12,
+                    Servings = 36,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Peanut Butter Chip Chocolate Cookies",
+                    Description = "Rich chocolate cookies studded with peanut butter chips. Recipe from Betty. Makes about 3 dozen.",
+                    Ingredients = "1 cup margarine\n1 1/2 cups sugar\n2 eggs\n2 teaspoons vanilla\n2 cups flour\n2/3 cup cocoa\n3/4 teaspoon baking soda\n1/2 teaspoon salt\n12 ounces peanut butter chips",
+                    Instructions = "1. Cream margarine and sugar. Add eggs and vanilla; mix well.\n2. Combine flour, cocoa, baking soda, and salt; add to creamed mixture and mix.\n3. Stir in peanut butter chips.\n4. Drop by teaspoonful onto an ungreased cookie sheet.\n5. Bake at 350°F for 8–10 minutes.\n6. Cool 1 minute before removing from cookie sheet.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 10,
+                    Servings = 36,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Hamburger-Bean Casserole",
+                    Description = "A quick and easy ground beef and bean casserole with tangy sauce. Family recipe from Mom.",
+                    Ingredients = "1 tablespoon butter\n1 pound ground beef\n1 package onion soup mix\n1/2 cup water\n1 cup ketchup\n2 tablespoons prepared mustard\n2 tablespoons vinegar\n1 (14-ounce) can pork and beans",
+                    Instructions = "1. Brown ground beef in butter.\n2. Add remaining ingredients and combine.\n3. Bake at 400°F for 20–30 minutes.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 30,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Tuna-Kraft Dinner Casserole",
+                    Description = "A comforting casserole using macaroni and cheese dinner, tuna, and tomatoes. Family recipe from Mom. Serves 5.",
+                    Ingredients = "3 (7 1/2-ounce) packages macaroni & cheese dinner\n1 tablespoon soft margarine\n1 (7 1/2-ounce) can tomatoes (about 1 cup)\n1/2 cup milk\n2 tablespoons instant minced onion\n1 egg, slightly beaten\n1 can tuna (6 1/2 to 9 1/4 ounces)\n2 tablespoons snipped parsley\n1/4 teaspoon salt\nDash of pepper\n2 tablespoons cornflake crumbs",
+                    Instructions = "1. Cook macaroni according to package directions; drain.\n2. Add cheese (from the dinner packages) and margarine; toss to mix.\n3. Drain tomatoes, reserving liquid. Dice tomatoes.\n4. Add diced tomatoes, reserved liquid, and remaining ingredients except crumbs; mix.\n5. Pour into a greased 1-quart casserole.\n6. Sprinkle with cornflake crumbs.\n7. Bake uncovered at 350°F for 35 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 35,
+                    Servings = 5,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Turkey Sausage and Spicy Tomato Sauce (Slow Cooker)",
+                    Description = "A flavorful slow cooker pasta sauce with smoked turkey sausage and aromatic spices. From Cooking Light (Oct 2014). Serves 12.",
+                    Ingredients = "1 tablespoon olive oil\n1 1/4 pounds smoked turkey sausage, cut into 1-inch pieces\n2 cups chopped onion\n15 garlic cloves, chopped (about 1 head)\n2 carrots, very thinly sliced\n2 Fresno chiles, thinly sliced\n3 tablespoons chopped fresh thyme\n2 teaspoons ground coriander\n2 teaspoons ground cumin\n1 teaspoon ground cinnamon\n1 teaspoon ground turmeric\n1/2 teaspoon crushed red pepper\n1 cup dry white wine\n2 (28.5-ounce) cans unsalted whole tomatoes\n1 tablespoon mustard seeds\n1 tablespoon lower-sodium soy sauce\n6 (2-inch) strips lemon rind\n3 bay leaves\n8 cups cooked penne pasta\n1/4 cup chopped fresh cilantro\n2 ounces Cotija cheese, crumbled",
+                    Instructions = "1. Heat a large Dutch oven over medium-high heat. Add oil; swirl to coat. Add sausage; cook 8 minutes or until browned, stirring occasionally. Transfer sausage to a 6-quart slow cooker.\n2. Add onion, garlic, carrots, and chiles to pan; sauté 6 minutes or until tender. Add thyme, coriander, cumin, cinnamon, turmeric, and crushed red pepper; cook 1 minute. Add wine; bring to a boil. Cook 2 minutes or until wine is reduced by half. Add onion mixture to slow cooker.\n3. Drain 1 can of tomatoes. Add drained tomatoes, remaining 1 can tomatoes with liquid, mustard seeds, soy sauce, lemon rind, and bay leaves to slow cooker. Stir to combine and break up tomatoes. Cook on LOW for 8 hours. Remove and discard rind and bay leaves.\n4. Serve sauce over pasta; sprinkle with cilantro and Cotija cheese.",
+                    PrepTimeMinutes = 25,
+                    CookTimeMinutes = 480,
+                    Servings = 12,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Stay-Abed Stew",
+                    Description = "An easy slow-baked beef stew that cooks while you relax. From Family Circle (9/1/82). Serves 5-6.",
+                    Ingredients = "2 pounds beef stew meat, cubed\n1 can tiny peas (optional)\n1 cup sliced carrots\n2 onions, chopped\n1 teaspoon salt\nDash of pepper\n1 can cream of celery soup (or mushroom or tomato), thinned with 1/2 can water\n1 big raw potato, sliced\nPiece of bay leaf",
+                    Instructions = "1. Mix everything together in a tight-lidded casserole dish.\n2. Cover and bake at 275°F for 5 hours.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 300,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Stew (Tapioca-Thickened)",
+                    Description = "A hearty beef stew thickened with tapioca. Can be made in oven or crockpot.",
+                    Ingredients = "8 or more potatoes, diced and peeled\n1 pound baby carrots (or more)\n4 or more celery stalks, cut up\n3/4 teaspoon onion powder\n3 tablespoons Minute tapioca\n1 tablespoon sugar\n1 tablespoon salt\n2 pounds stewing beef, cubed\n1 can cut-up tomatoes\n1/2 cup water",
+                    Instructions = "1. Layer vegetables in the bottom of a crockpot or Dutch oven.\n2. Mix onion powder, Minute tapioca, sugar, and salt; sprinkle over layers of vegetables, then over beef.\n3. Put beef on top of vegetables.\n4. Pour tomatoes and water over top of all.\n5. Cover and cook: 5 hours at 250°F, or 2 1/2 hours at 300°F, or all day in a crockpot.\n6. Stir when nearly done.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 300,
+                    Servings = 8,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "5-Hour Stew",
+                    Description = "A simple slow-cooked beef stew thickened with tapioca. Family recipe from Mom.",
+                    Ingredients = "2 pounds cubed stewing meat\n3 potatoes, diced\n3 carrots, diced\n1 large onion, diced\n1 can tomatoes (about 2 cups)\n1/2 cup water\n3 tablespoons Minute tapioca\n1 tablespoon sugar\nSalt and pepper to taste\nSmall amount of shortening (for browning)",
+                    Instructions = "1. Brown meat in a small amount of shortening.\n2. Combine with remaining ingredients and turn into a covered casserole.\n3. Bake at 250°F for 5 hours.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 300,
+                    Servings = 6,
+                    Category = "Main Dishes",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Zucchini Bread",
+                    Description = "Moist and delicious zucchini bread with cinnamon and nuts. Recipe from Sharon Fuller. Makes 2 loaves.",
+                    Ingredients = "3 eggs, beaten\n1/2 cup cooking oil\n2 cups sugar\n2 cups peeled and grated zucchini\n2 teaspoons vanilla\n3 cups flour\n1 teaspoon baking soda\n1 teaspoon baking powder\n1 teaspoon salt\n1 teaspoon cinnamon\n1/2 cup chopped nuts",
+                    Instructions = "1. Grease and flour 2 loaf pans.\n2. Cream together oil, eggs, sugar, zucchini, and vanilla.\n3. In a separate bowl, mix flour, baking soda, baking powder, salt, and cinnamon.\n4. Add dry ingredients to creamed mixture; mix thoroughly until blended.\n5. Add nuts.\n6. Bake at 325°F for 45 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 45,
+                    Servings = 24,
+                    Category = "Breads",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
                 }
             );
 
