@@ -1187,6 +1187,85 @@ public static class SeedData
                     Category = "Bars",
                     ImageUrl = null,
                     CreatedAt = DateTime.UtcNow
+                },
+                // New recipes from digitized_recipes_final (1).pdf
+                new Recipe
+                {
+                    Title = "Pecan Bars",
+                    Description = "Rich pecan bars with a buttery crust and gooey pecan filling. Recipe from Mom.",
+                    Ingredients = "Crust:\n1 cup butter or margarine\n1 cup brown sugar\n2 cups flour\n\nFilling:\n4 medium eggs\n1 cup dark Karo syrup\n2 tablespoons butter\n2 tablespoons flour\n3/4 cup sugar\n1 teaspoon vanilla\n1 cup pecans\nDash salt",
+                    Instructions = "1. Mix crust ingredients until crumbly.\n2. Pat into a 9×13-inch pan.\n3. Bake at 350°F for 10 minutes.\n4. Combine filling ingredients and pour over baked crust.\n5. Bake at 275°F for 1 hour, or until set.\n6. Cool before cutting.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 70,
+                    Servings = 24,
+                    Category = "Bars",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Diamond Applesauce Brownies",
+                    Description = "Moist applesauce brownies with orange glaze, cut into diamond shapes. Recipe from Mom.",
+                    Ingredients = "Brownies:\n6 tablespoons butter or margarine\n1 cup brown sugar\n1 egg, beaten\n1/2 cup applesauce\n1 teaspoon shredded orange peel\n1 teaspoon vanilla\n1 1/4 cups flour\n1 teaspoon baking powder\n1/2 teaspoon salt\n1/4 teaspoon soda\n1/2 cup chopped walnuts\n\nOrange Glaze:\n1 1/2 cups sifted confectioners' sugar\n1/2 teaspoon vanilla\nDash salt\nOrange juice (about 2 tablespoons)",
+                    Instructions = "1. Combine butter (or margarine) and brown sugar in a saucepan. Cook over medium heat until butter melts; remove from heat.\n2. Beat in the egg.\n3. Stir in applesauce, orange peel, and vanilla.\n4. Sift together flour, baking powder, salt, and soda; add to batter.\n5. Stir in walnuts.\n6. Spread in a greased jelly-roll pan (13×10×1-inch). Bake at 350°F for 15 minutes.\n7. While warm, make Orange Glaze: combine confectioners' sugar, vanilla, and salt; add enough orange juice to make glaze consistency. Spread over warm brownies.\n8. Cut into diamond shapes.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 15,
+                    Servings = 24,
+                    Category = "Bars",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Mom's Christmas Chocolate Bars",
+                    Description = "Layered chocolate bars with oatmeal crumb crust, caramel layer, chocolate chips, and pecans. A holiday favorite from Mom.",
+                    Ingredients = "Crumb Mixture:\n2 sticks oleo (1 cup)\n2 cups flour\n2 cups oatmeal\n1 1/2 cups brown sugar\n1 teaspoon soda\n1 teaspoon salt\n\nCaramel Layer:\n64 caramels\n1 cup condensed milk\n\nTopping:\n2 cups chocolate chips\nPecans (to taste)",
+                    Instructions = "1. Mix crumb mixture ingredients.\n2. Press about half of the crumb mixture into a 9×13-inch pan.\n3. Bake at 350°F for 10 minutes.\n4. Melt caramels with condensed milk and spread over the baked crust.\n5. Sprinkle chocolate chips and pecans on top.\n6. Top with remaining crumb mixture.\n7. Bake at 350°F for 20–25 minutes.\n8. Cool slightly, then remove to a cooling rack.",
+                    PrepTimeMinutes = 25,
+                    CookTimeMinutes = 35,
+                    Servings = 24,
+                    Category = "Bars",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Cocoa Bars",
+                    Description = "Soft chocolate bars with cocoa frosting. Recipe from Mom. Makes about 2 dozen.",
+                    Ingredients = "Cocoa Bars:\n1/4 cup butter or margarine\n1 cup sugar\n1 teaspoon vanilla\n2 eggs\n1/4 cup milk\n1 cup flour\n2 tablespoons cocoa\n1/2 teaspoon salt\n1/2 cup chopped walnuts\n\nCocoa Frosting:\n1 1/2 tablespoons cocoa\n1 tablespoon milk\n1/4 teaspoon vanilla\n1 1/2 tablespoons soft butter or margarine\n2/3 cup sifted confectioners' sugar",
+                    Instructions = "1. Cream butter (or margarine) and sugar, gradually adding sugar to butter and creaming well.\n2. Beat in eggs, one at a time.\n3. Stir in milk.\n4. Sift together flour, cocoa, and salt; add to batter.\n5. Stir in walnuts.\n6. Spread in a greased 9×9-inch pan.\n7. Bake at 375°F for 20 minutes, or until done.\n8. Frost at once with Cocoa Frosting: blend frosting ingredients until smooth.",
+                    PrepTimeMinutes = 15,
+                    CookTimeMinutes = 20,
+                    Servings = 24,
+                    Category = "Bars",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Soft Rolled Ginger Cookies",
+                    Description = "Soft and chewy rolled ginger cookies with warm spices. Makes about 5 dozen.",
+                    Ingredients = "1 cup shortening\n1 cup sugar\n1 egg\n1/4 cup molasses\n2 teaspoons vinegar\n5 cups flour\n1 1/2 teaspoons soda\n1/2 teaspoon salt\n2–3 teaspoons ginger\n1 teaspoon cinnamon\n1 teaspoon ground cloves",
+                    Instructions = "1. Cream shortening and sugar.\n2. Beat in egg.\n3. Add molasses and vinegar.\n4. Sift together dry ingredients; blend into sugar mixture.\n5. Chill dough 3 hours.\n6. Roll dough 1/8-inch thick on a lightly floured surface.\n7. Cut into desired shapes and place on cookie sheets.\n8. Bake at 375°F for 5–6 minutes.",
+                    PrepTimeMinutes = 20,
+                    CookTimeMinutes = 6,
+                    Servings = 60,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Recipe
+                {
+                    Title = "Lemon Hearts",
+                    Description = "Delicate lemon butter cookies with a heart-shaped cutout and lemon glaze. From Good Housekeeping, December 2002. Makes about 6 dozen.",
+                    Ingredients = "Lemon Cookies:\n3 cups all-purpose flour\n3 tablespoons cornstarch\n3/4 teaspoon salt\n1 1/2 cups butter (3 sticks), softened\n1 cup confectioners' sugar\n1 tablespoon grated fresh lemon peel\n1 1/2 teaspoons lemon extract\n1/4 teaspoon almond extract\n\nLemon Glaze:\n1 1/2 cups confectioners' sugar\n4 to 5 teaspoons fresh lemon juice\n1 1/2 teaspoons grated fresh lemon peel",
+                    Instructions = "1. Preheat oven to 325°F. On waxed paper, combine flour, cornstarch, and salt.\n2. In a large bowl, with mixer at medium speed, beat butter and confectioners' sugar until creamy. Beat in lemon peel and extracts.\n3. Reduce speed to low; gradually beat in flour mixture until blended.\n4. Divide dough in half. Between two sheets of waxed paper, roll half of dough 3/8 inch thick.\n5. With floured 2 1/4-inch heart-shaped cookie cutter, cut dough into cookies. With 3/4-inch heart cutter, cut out centers. Reserve trimmings to reroll.\n6. Place cookies 1 inch apart on ungreased cookie sheet.\n7. Bake 15–16 minutes or until edges are golden. Cool on wire rack 10 minutes.\n8. Prepare Lemon Glaze: mix confectioners' sugar, lemon juice, and lemon peel until smooth.\n9. Dip top of each warm cookie into glaze. Place on wire rack; allow glaze to set about 20 minutes.\n10. Store in airtight container up to 1 week, or freeze up to 3 months.",
+                    PrepTimeMinutes = 40,
+                    CookTimeMinutes = 16,
+                    Servings = 72,
+                    Category = "Cookies",
+                    ImageUrl = null,
+                    CreatedAt = DateTime.UtcNow
                 }
             );
 
