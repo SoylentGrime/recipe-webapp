@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: your-recipe-app    # set this to your Azure Web App name
+  AZURE_WEBAPP_NAME: recipe-webapp-sg2024    # Azure Web App name
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   DOTNET_VERSION: '9.0.x'
 
