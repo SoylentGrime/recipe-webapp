@@ -99,14 +99,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 builder.Services.AddRazorPages(options =>
 {
-    // Require Admin role for Create, Edit, Delete pages
-    options.Conventions.AuthorizeFolder("/Recipes/Admin", "AdminPolicy");
+    // Require authentication for Create, Edit, Delete pages
+    options.Conventions.AuthorizeFolder("/Recipes/Admin");
 });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
-});
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 

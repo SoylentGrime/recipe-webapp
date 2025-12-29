@@ -6,7 +6,7 @@ using Recipe_Webpage.Data;
 
 namespace Recipe_Webpage.Pages.Recipes.Admin;
 
-[Authorize(Roles = "Admin")]
+[Authorize]
 public class DeleteModel : PageModel
 {
     private readonly ApplicationDbContext _context;

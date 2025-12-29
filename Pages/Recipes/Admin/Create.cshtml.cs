@@ -7,7 +7,7 @@ using Recipe_Webpage.Services;
 
 namespace Recipe_Webpage.Pages.Recipes.Admin;
 
-[Authorize(Roles = "Admin")]
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _context;
