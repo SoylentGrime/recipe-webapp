@@ -434,6 +434,100 @@ public class RecipesApiController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Translate a recipe to a target language
+    /// </summary>
+    /// <param name="id">The recipe ID</param>
+    /// <param name="targetLanguage">Target language code: 'en' for English, 'zh' for Chinese</param>
+    /// <returns>The updated recipe with translation</returns>
+    /// <response code="200">Recipe translated successfully</response>
+    /// <response code="400">Invalid request or translation service not configured</response>
+    /// <response code="404">Recipe not found</response>
+    [HttpPost("{id}/translate", Name = "TranslateRecipe")]
+    [ProducesResponseType(typeof(RecipeDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<RecipeDto>> TranslateRecipe(int id, [FromQuery] string targetLanguage)
+    {
+        if (!_translationService.IsConfigured)
+        {
+            return BadRequest(new ErrorResponse { Error = "Translation unavailable", Message = "Translation service is not configured" });
+        }
+
+        var recipe = await _context.Recipes.FindAsync(id);
+        if (recipe == null)
+        {
+            return NotFound(new ErrorResponse { Error = "Recipe not found", Message = $"No recipe exists with ID {id}" });
+        }
+
+        targetLanguage = targetLanguage?.ToLower() ?? "zh";
+        
+        try
+        {
+            if (targetLanguage == "zh")
+            {
+                // Translate English to Chinese
+                if (string.IsNullOrEmpty(recipe.Title))
+                {
+                    return BadRequest(new ErrorResponse { Error = "No source content", Message = "Recipe has no English content to translate" });
+                }
+
+                var (titleZh, descriptionZh, ingredientsZh, instructionsZh, categoryZh) = 
+                    await _translationService.TranslateRecipeFieldsAsync(
+                        recipe.Title,
+                        recipe.Description,
+                        recipe.Ingredients,
+                        recipe.Instructions,
+                        recipe.Category,
+                        "en",
+                        "zh-Hans");
+
+                recipe.TitleZh = titleZh;
+                recipe.DescriptionZh = descriptionZh;
+                recipe.IngredientsZh = ingredientsZh;
+                recipe.InstructionsZh = instructionsZh;
+                recipe.CategoryZh = categoryZh;
+            }
+            else if (targetLanguage == "en")
+            {
+                // Translate Chinese to English
+                if (string.IsNullOrEmpty(recipe.TitleZh))
+                {
+                    return BadRequest(new ErrorResponse { Error = "No source content", Message = "Recipe has no Chinese content to translate" });
+                }
+
+                var (title, description, ingredients, instructions, category) = 
+                    await _translationService.TranslateRecipeFieldsAsync(
+                        recipe.TitleZh,
+                        recipe.DescriptionZh,
+                        recipe.IngredientsZh,
+                        recipe.InstructionsZh,
+                        recipe.CategoryZh,
+                        "zh-Hans",
+                        "en");
+
+                recipe.Title = title ?? recipe.Title;
+                recipe.Description = description;
+                recipe.Ingredients = ingredients ?? recipe.Ingredients;
+                recipe.Instructions = instructions ?? recipe.Instructions;
+                recipe.Category = category;
+            }
+            else
+            {
+                return BadRequest(new ErrorResponse { Error = "Invalid language", Message = "Target language must be 'en' or 'zh'" });
+            }
+
+            recipe.UpdatedAt = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            return Ok(ToRecipeDto(recipe));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ErrorResponse { Error = "Translation failed", Message = ex.Message });
+        }
+    }
+
     #region Helper Methods
 
     private static RecipeDto ToRecipeDto(Recipe recipe) => new()

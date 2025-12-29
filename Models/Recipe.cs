@@ -66,4 +66,23 @@ public class Recipe
     public string GetIngredients(string culture) => culture == "zh" && !string.IsNullOrEmpty(IngredientsZh) ? IngredientsZh : Ingredients;
     public string GetInstructions(string culture) => culture == "zh" && !string.IsNullOrEmpty(InstructionsZh) ? InstructionsZh : Instructions;
     public string? GetCategory(string culture) => culture == "zh" && !string.IsNullOrEmpty(CategoryZh) ? CategoryZh : Category;
+
+    // Check if translation exists for a given culture
+    public bool HasTranslation(string culture)
+    {
+        if (culture == "zh")
+        {
+            return !string.IsNullOrEmpty(TitleZh);
+        }
+        else // English
+        {
+            return !string.IsNullOrEmpty(Title);
+        }
+    }
+
+    // Check if we're showing a fallback (original language content because translation doesn't exist)
+    public bool IsShowingFallback(string culture)
+    {
+        return !HasTranslation(culture);
+    }
 }

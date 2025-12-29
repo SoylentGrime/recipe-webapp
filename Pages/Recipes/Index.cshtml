@@ -86,6 +86,7 @@
                 var recipeTitle = recipe.GetTitle(culture);
                 var recipeDescription = recipe.GetDescription(culture);
                 var recipeCategory = recipe.GetCategory(culture);
+                var isShowingFallback = recipe.IsShowingFallback(culture);
                 <div class="col">
                     <div class="card h-100 recipe-card position-relative">
                         <!-- Selection Checkbox -->
@@ -96,6 +97,14 @@
                                        onchange="updateSelectionCount()">
                             </div>
                         </div>
+                        @if (isShowingFallback)
+                        {
+                            <div class="position-absolute top-0 end-0 m-2 z-1">
+                                <span class="badge bg-warning text-dark" title="@(culture == "zh" ? "点击查看详情并翻译" : "Click to view and translate")">
+                                    <i class="bi bi-translate"></i>
+                                </span>
+                            </div>
+                        }
                         @if (!string.IsNullOrEmpty(recipe.ImageUrl))
                         {
                             <img src="@recipe.ImageUrl" class="card-img-top" alt="@recipeTitle" style="height: 200px; object-fit: cover;">

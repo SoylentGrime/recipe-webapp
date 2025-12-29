@@ -8,6 +8,8 @@
     var ingredients = Model.Recipe?.GetIngredients(culture) ?? "";
     var instructions = Model.Recipe?.GetInstructions(culture) ?? "";
     var category = Model.Recipe?.GetCategory(culture);
+    var isShowingFallback = Model.Recipe?.IsShowingFallback(culture) ?? false;
+    var targetLang = culture == "zh" ? "zh" : "en";
     ViewData["Title"] = title;
 }
 
@@ -46,6 +48,19 @@ else
                                 @if (!string.IsNullOrEmpty(category))
                                 {
                                     <span class="badge bg-info fs-6">@category</span>
+                                }
+                                @if (isShowingFallback)
+                                {
+                                    <div class="mt-2">
+                                        <span class="badge bg-warning text-dark me-2">
+                                            <i class="bi bi-translate"></i> 
+                                            @(culture == "zh" ? "显示英文原文" : "Showing Chinese original")
+                                        </span>
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="translateRecipe(@Model.Recipe!.Id, '@targetLang')" id="translateBtn">
+                                            <i class="bi bi-translate"></i> 
+                                            @(culture == "zh" ? "翻译成中文" : "Translate to English")
+                                        </button>
+                                    </div>
                                 }
                             </div>
                             <div class="btn-group edit-mode-only" style="display: none;">
@@ -169,5 +184,36 @@ else
                 document.querySelectorAll('.edit-mode-only').forEach(el => el.style.display = '');
             }
         });
+
+        async function translateRecipe(recipeId, targetLang) {
+            const btn = document.getElementById('translateBtn');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ' + 
+                (targetLang === 'zh' ? '翻译中...' : 'Translating...');
+
+            try {
+                const response = await fetch(`/api/recipes/${recipeId}/translate?targetLanguage=${targetLang}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Reload the page to show the translated content
+                    window.location.reload();
+                } else {
+                    const error = await response.json();
+                    alert((targetLang === 'zh' ? '翻译失败: ' : 'Translation failed: ') + (error.message || error.error));
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            } catch (err) {
+                alert((targetLang === 'zh' ? '翻译失败: ' : 'Translation failed: ') + err.message);
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
     </script>
 }
