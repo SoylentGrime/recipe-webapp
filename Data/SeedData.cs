@@ -13,28 +13,22 @@ public static class SeedData
         using var context = new ApplicationDbContext(
             serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
 
-        // Try to apply migrations, with fallback for databases created with EnsureCreated
+        var logger = serviceProvider.GetService<ILogger<ApplicationDbContext>>();
+
+        // Ensure database exists
+        await context.Database.EnsureCreatedAsync();
+        
+        // Try to add multi-language columns if they don't exist
+        // This handles both new databases and databases that already have base tables
         try
         {
-            await context.Database.MigrateAsync();
+            await AddMultiLanguageColumnsIfNotExistAsync(context);
+            logger?.LogInformation("Multi-language columns verified/added");
         }
         catch (Exception ex)
         {
-            // If migration fails (e.g., tables already exist from EnsureCreated),
-            // try to add the new columns directly
-            var logger = serviceProvider.GetService<ILogger<ApplicationDbContext>>();
-            logger?.LogWarning(ex, "Migration failed, attempting to add columns directly");
-            
-            try
-            {
-                // Check if new columns exist, if not add them
-                await AddMultiLanguageColumnsIfNotExistAsync(context);
-            }
-            catch (Exception innerEx)
-            {
-                logger?.LogError(innerEx, "Failed to add columns directly");
-                // Continue anyway - the app might still work if columns already exist
-            }
+            logger?.LogWarning(ex, "Could not add multi-language columns - they may already exist or database doesn't support the operation");
+            // Continue - app should still work
         }
 
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -68,8 +62,9 @@ public static class SeedData
             }
         }
 
-        // One-time translation migration: translate existing recipes that don't have Chinese translations
-        await TranslateExistingRecipesAsync(serviceProvider, context);
+        // NOTE: Disabled automatic translation on startup to avoid rate limiting on free tier
+        // Translation should be done manually via admin interface or by editing individual recipes
+        // await TranslateExistingRecipesAsync(serviceProvider, context);
 
         // Seed sample recipes if none exist
         if (!await context.Recipes.AnyAsync())
