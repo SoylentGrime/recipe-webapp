@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@inject Recipe_Webpage.Services.ILocalizationService L
+<!DOCTYPE html>
+<html lang="@(L.IsChinese ? "zh" : "en")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Recipe Book</title>
+    <title>@ViewData["Title"] - @L["RecipeBook"]</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -15,7 +16,7 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <i class="bi bi-book"></i> Recipe Book
+                    <i class="bi bi-book"></i> @L["RecipeBook"]
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -25,17 +26,17 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Index">
-                                <i class="bi bi-house"></i> Home
+                                <i class="bi bi-house"></i> @L["Home"]
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Recipes/Index">
-                                <i class="bi bi-journal-text"></i> Recipes
+                                <i class="bi bi-journal-text"></i> @L["Recipes"]
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Privacy">
-                                <i class="bi bi-shield-check"></i> Privacy
+                                <i class="bi bi-shield-check"></i> @L["Privacy"]
                             </a>
                         </li>
                     </ul>
@@ -52,7 +53,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - Recipe Book - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2025 - @L["RecipeBook"] - <a asp-area="" asp-page="/Privacy">@L["Privacy"]</a>
         </div>
     </footer>
 

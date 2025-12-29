@@ -1,13 +1,22 @@
-﻿@* Edit Mode Toggle - No login required *@
-<ul class="navbar-nav">
+﻿@inject Recipe_Webpage.Services.ILocalizationService L
+@* Edit Mode Toggle - No login required *@
+<ul class="navbar-nav d-flex flex-row align-items-center">
+    <li class="nav-item me-2">
+        <a href="?lang=@(L.IsChinese ? "en" : "zh")" class="nav-link btn btn-sm btn-outline-light" title="@(L.IsChinese ? "English" : "中文")">
+            <i class="bi bi-translate"></i> @(L.IsChinese ? "EN" : "中文")
+        </a>
+    </li>
     <li class="nav-item">
         <button type="button" class="btn btn-sm nav-link" id="editModeToggle" onclick="toggleEditMode()">
-            <i class="bi bi-pencil-square"></i> <span id="editModeText">Edit Mode</span>
+            <i class="bi bi-pencil-square"></i> <span id="editModeText">@L["EditMode"]</span>
         </button>
     </li>
 </ul>
 
 <script>
+    var editModeText = '@L["EditMode"]';
+    var exitEditModeText = '@L["ExitEditMode"]';
+    
     function isEditMode() {
         return localStorage.getItem('editMode') === 'true';
     }
@@ -27,11 +36,11 @@
         if (editMode) {
             toggle.classList.add('btn-warning');
             toggle.classList.remove('btn-outline-secondary');
-            text.textContent = 'Exit Edit Mode';
+            text.textContent = exitEditModeText;
         } else {
             toggle.classList.remove('btn-warning');
             toggle.classList.add('btn-outline-secondary');
-            text.textContent = 'Edit Mode';
+            text.textContent = editModeText;
         }
     }
 

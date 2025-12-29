@@ -1,14 +1,15 @@
 @page
 @model Recipe_Webpage.Pages.Recipes.Admin.CreateModel
+@inject Recipe_Webpage.Services.ILocalizationService L
 @{
-    ViewData["Title"] = "Add New Recipe";
+    ViewData["Title"] = L["CreateRecipe"];
 }
 
 <div class="container">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-page="../Index">Recipes</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add New Recipe</li>
+            <li class="breadcrumb-item"><a asp-page="../Index">@L["Recipes"]</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@L["CreateRecipe"]</li>
         </ol>
     </nav>
 
@@ -16,41 +17,41 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header bg-success text-white">
-                    <h3 class="mb-0"><i class="bi bi-plus-circle"></i> Add New Recipe</h3>
+                    <h3 class="mb-0"><i class="bi bi-plus-circle"></i> @L["CreateRecipe"]</h3>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
                         
                         <div class="mb-3">
-                            <label asp-for="Recipe.Title" class="form-label"></label>
-                            <input asp-for="Recipe.Title" class="form-control" placeholder="Enter recipe title" />
+                            <label asp-for="Recipe.Title" class="form-label">@L["Title"]</label>
+                            <input asp-for="Recipe.Title" class="form-control" placeholder="" />
                             <span asp-validation-for="Recipe.Title" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Recipe.Description" class="form-label"></label>
-                            <textarea asp-for="Recipe.Description" class="form-control" rows="2" placeholder="Brief description of the recipe"></textarea>
+                            <label asp-for="Recipe.Description" class="form-label">@L["Description"]</label>
+                            <textarea asp-for="Recipe.Description" class="form-control" rows="2" placeholder=""></textarea>
                             <span asp-validation-for="Recipe.Description" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Recipe.Category" class="form-label"></label>
-                            <input asp-for="Recipe.Category" class="form-control" list="categories" placeholder="e.g., Pasta, Desserts, Soups" />
+                            <label asp-for="Recipe.Category" class="form-label">@L["Category"]</label>
+                            <input asp-for="Recipe.Category" class="form-control" list="categories" placeholder="" />
                             <datalist id="categories">
-                                <option value="Appetizers"></option>
-                                <option value="Breakfast"></option>
-                                <option value="Lunch"></option>
-                                <option value="Dinner"></option>
-                                <option value="Desserts"></option>
-                                <option value="Soups"></option>
-                                <option value="Salads"></option>
-                                <option value="Pasta"></option>
-                                <option value="Pizza"></option>
-                                <option value="Curry"></option>
-                                <option value="Seafood"></option>
-                                <option value="Vegetarian"></option>
-                                <option value="Vegan"></option>
+                                <option value="@L["Appetizers"]"></option>
+                                <option value="@L["Breakfast"]"></option>
+                                <option value="@L["Lunch"]"></option>
+                                <option value="@L["Dinner"]"></option>
+                                <option value="@L["Desserts"]"></option>
+                                <option value="@L["Soups"]"></option>
+                                <option value="@L["Salads"]"></option>
+                                <option value="@L["Pasta"]"></option>
+                                <option value="@L["Pizza"]"></option>
+                                <option value="@L["Curry"]"></option>
+                                <option value="@L["Seafood"]"></option>
+                                <option value="@L["Vegetarian"]"></option>
+                                <option value="@L["Vegan"]"></option>
                             </datalist>
                             <span asp-validation-for="Recipe.Category" class="text-danger"></span>
                         </div>
@@ -58,18 +59,18 @@
                         <!-- Image Section -->
                         <div class="card mb-3 border-info">
                             <div class="card-header bg-info text-white">
-                                <h6 class="mb-0"><i class="bi bi-image"></i> Recipe Image</h6>
+                                <h6 class="mb-0"><i class="bi bi-image"></i> @L["UploadImage"]</h6>
                             </div>
                             <div class="card-body">
                                 <div class="mb-0">
                                     <label asp-for="ImageFile" class="form-label">
-                                        <i class="bi bi-upload"></i> Upload Image
+                                        <i class="bi bi-upload"></i> @L["UploadImage"]
                                     </label>
                                     <input asp-for="ImageFile" class="form-control" type="file" 
                                            accept="@string.Join(",", Model.AllowedExtensions)" />
                                     <span asp-validation-for="ImageFile" class="text-danger"></span>
                                     <div class="form-text">
-                                        Allowed: @string.Join(", ", Model.AllowedExtensions) | Max size: @Model.MaxFileSizeMB MB
+                                        @L["AllowedFormats"]: @string.Join(", ", Model.AllowedExtensions) | @L["MaxSize"]: @Model.MaxFileSizeMB MB
                                     </div>
                                 </div>
                             </div>
@@ -77,48 +78,46 @@
 
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label asp-for="Recipe.PrepTimeMinutes" class="form-label"></label>
+                                <label asp-for="Recipe.PrepTimeMinutes" class="form-label">@L["PrepTime"]</label>
                                 <div class="input-group">
                                     <input asp-for="Recipe.PrepTimeMinutes" class="form-control" type="number" min="1" max="1440" />
-                                    <span class="input-group-text">min</span>
+                                    <span class="input-group-text">@L["min"]</span>
                                 </div>
                                 <span asp-validation-for="Recipe.PrepTimeMinutes" class="text-danger"></span>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label asp-for="Recipe.CookTimeMinutes" class="form-label"></label>
+                                <label asp-for="Recipe.CookTimeMinutes" class="form-label">@L["CookTime"]</label>
                                 <div class="input-group">
                                     <input asp-for="Recipe.CookTimeMinutes" class="form-control" type="number" min="1" max="1440" />
-                                    <span class="input-group-text">min</span>
+                                    <span class="input-group-text">@L["min"]</span>
                                 </div>
                                 <span asp-validation-for="Recipe.CookTimeMinutes" class="text-danger"></span>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label asp-for="Recipe.Servings" class="form-label"></label>
+                                <label asp-for="Recipe.Servings" class="form-label">@L["Servings"]</label>
                                 <input asp-for="Recipe.Servings" class="form-control" type="number" min="1" max="100" />
                                 <span asp-validation-for="Recipe.Servings" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Recipe.Ingredients" class="form-label"></label>
-                            <textarea asp-for="Recipe.Ingredients" class="form-control" rows="8" placeholder="Enter each ingredient on a new line&#10;e.g.:&#10;2 cups flour&#10;1 tsp salt&#10;3 eggs"></textarea>
-                            <div class="form-text">Enter each ingredient on a new line</div>
+                            <label asp-for="Recipe.Ingredients" class="form-label">@L["Ingredients"]</label>
+                            <textarea asp-for="Recipe.Ingredients" class="form-control" rows="8" placeholder=""></textarea>
                             <span asp-validation-for="Recipe.Ingredients" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Recipe.Instructions" class="form-label"></label>
-                            <textarea asp-for="Recipe.Instructions" class="form-control" rows="10" placeholder="Enter each step on a new line&#10;e.g.:&#10;1. Preheat oven to 350°F&#10;2. Mix dry ingredients&#10;3. Add wet ingredients"></textarea>
-                            <div class="form-text">Enter each step on a new line (numbering optional)</div>
+                            <label asp-for="Recipe.Instructions" class="form-label">@L["Instructions"]</label>
+                            <textarea asp-for="Recipe.Instructions" class="form-control" rows="10" placeholder=""></textarea>
                             <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
                         </div>
 
                         <div class="d-flex justify-content-between">
                             <a asp-page="../Index" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left"></i> Cancel
+                                <i class="bi bi-arrow-left"></i> @L["Cancel"]
                             </a>
                             <button type="submit" class="btn btn-success">
-                                <i class="bi bi-check-circle"></i> Create Recipe
+                                <i class="bi bi-check-circle"></i> @L["Save"]
                             </button>
                         </div>
                     </form>
@@ -129,15 +128,15 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header bg-info text-white">
-                    <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Tips</h5>
+                    <h5 class="mb-0"><i class="bi bi-lightbulb"></i> @L["Tips"]</h5>
                 </div>
                 <div class="card-body">
                     <ul class="mb-0">
-                        <li class="mb-2">Be specific with ingredient measurements</li>
-                        <li class="mb-2">Include temperature and time in instructions</li>
-                        <li class="mb-2">Use clear, numbered steps</li>
-                        <li class="mb-2">Upload a photo to make the recipe more appealing</li>
-                        <li>Choose a category to help users find your recipe</li>
+                        <li class="mb-2">@L["Tip1"]</li>
+                        <li class="mb-2">@L["Tip2"]</li>
+                        <li class="mb-2">@L["Tip3"]</li>
+                        <li class="mb-2">@L["Tip4"]</li>
+                        <li>@L["Tip5"]</li>
                     </ul>
                 </div>
             </div>

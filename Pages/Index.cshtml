@@ -1,25 +1,25 @@
 ﻿@page
 @model IndexModel
+@inject Recipe_Webpage.Services.ILocalizationService L
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = L["Home"];
 }
 
 <div class="container">
     <!-- Hero Section -->
     <div class="px-4 py-5 my-5 text-center">
         <i class="bi bi-book display-1 text-primary mb-4"></i>
-        <h1 class="display-4 fw-bold">Welcome to Recipe Book</h1>
+        <h1 class="display-4 fw-bold">@L["WelcomeTitle"]</h1>
         <div class="col-lg-6 mx-auto">
             <p class="lead mb-4">
-                Discover, save, and share delicious recipes. From quick weeknight dinners to impressive party dishes,
-                find your next culinary adventure here.
+                @L["WelcomeDescription"]
             </p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <a asp-page="/Recipes/Index" class="btn btn-primary btn-lg px-4 gap-3">
-                    <i class="bi bi-journal-text"></i> Browse Recipes
+                    <i class="bi bi-journal-text"></i> @L["BrowseRecipes"]
                 </a>
                 <a asp-page="/Recipes/Admin/Create" class="btn btn-outline-success btn-lg px-4 edit-mode-only" style="display: none;">
-                    <i class="bi bi-plus-circle"></i> Add Recipe
+                    <i class="bi bi-plus-circle"></i> @L["AddRecipe"]
                 </a>
             </div>
         </div>
@@ -32,8 +32,8 @@
                 <i class="bi bi-search fs-4"></i>
             </div>
             <div>
-                <h3 class="fs-4">Easy to Find</h3>
-                <p>Search and filter recipes by category, ingredients, or cooking time to find exactly what you're looking for.</p>
+                <h3 class="fs-4">@L["EasyToFind"]</h3>
+                <p>@L["EasyToFindDesc"]</p>
             </div>
         </div>
         <div class="col d-flex align-items-start">
@@ -41,8 +41,8 @@
                 <i class="bi bi-clock fs-4"></i>
             </div>
             <div>
-                <h3 class="fs-4">Quick & Simple</h3>
-                <p>Clear instructions with prep times and serving sizes help you plan your cooking efficiently.</p>
+                <h3 class="fs-4">@L["QuickSimple"]</h3>
+                <p>@L["QuickSimpleDesc"]</p>
             </div>
         </div>
         <div class="col d-flex align-items-start">
@@ -50,8 +50,8 @@
                 <i class="bi bi-printer fs-4"></i>
             </div>
             <div>
-                <h3 class="fs-4">Print Friendly</h3>
-                <p>Print any recipe with a clean, easy-to-read format perfect for use in the kitchen.</p>
+                <h3 class="fs-4">@L["PrintFriendly"]</h3>
+                <p>@L["PrintFriendlyDesc"]</p>
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
     {
         <div class="py-5">
             <h2 class="text-center mb-4">
-                <i class="bi bi-star"></i> Recently Added
+                <i class="bi bi-star"></i> @L["RecentlyAdded"]
             </h2>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                 @foreach (var recipe in Model.RecentRecipes)
@@ -87,7 +87,7 @@
                             </div>
                             <div class="card-footer bg-transparent">
                                 <a asp-page="/Recipes/Details" asp-route-id="@recipe.Id" class="btn btn-sm btn-outline-primary">
-                                    View Recipe
+                                    @L["ViewRecipe"]
                                 </a>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
             </div>
             <div class="text-center mt-4">
                 <a asp-page="/Recipes/Index" class="btn btn-outline-primary">
-                    View All Recipes <i class="bi bi-arrow-right"></i>
+                    @L["BrowseRecipes"] <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
         </div>

@@ -1,24 +1,25 @@
 @page "{id:int}"
 @model Recipe_Webpage.Pages.Recipes.Admin.EditModel
+@inject Recipe_Webpage.Services.ILocalizationService L
 @{
-    ViewData["Title"] = "Edit Recipe";
+    ViewData["Title"] = L["EditRecipe"];
 }
 
 <div class="container">
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-page="../Index">Recipes</a></li>
+            <li class="breadcrumb-item"><a asp-page="../Index">@L["Recipes"]</a></li>
             <li class="breadcrumb-item"><a asp-page="../Details" asp-route-id="@Model.Recipe?.Id">@Model.Recipe?.Title</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            <li class="breadcrumb-item active" aria-current="page">@L["Edit"]</li>
         </ol>
     </nav>
 
     @if (Model.Recipe == null)
     {
         <div class="alert alert-danger">
-            <i class="bi bi-exclamation-triangle"></i> Recipe not found.
+            <i class="bi bi-exclamation-triangle"></i> @L["RecipeNotFound"]
         </div>
-        <a asp-page="../Index" class="btn btn-primary">Back to Recipes</a>
+        <a asp-page="../Index" class="btn btn-primary">@L["BackToRecipes"]</a>
     }
     else
     {
@@ -26,7 +27,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h3 class="mb-0"><i class="bi bi-pencil"></i> Edit Recipe</h3>
+                        <h3 class="mb-0"><i class="bi bi-pencil"></i> @L["EditRecipe"]</h3>
                     </div>
                     <div class="card-body">
                         <form method="post" enctype="multipart/form-data">
@@ -35,35 +36,35 @@
                             <input type="hidden" asp-for="Recipe.CreatedAt" />
                             
                             <div class="mb-3">
-                                <label asp-for="Recipe.Title" class="form-label"></label>
+                                <label asp-for="Recipe.Title" class="form-label">@L["Title"]</label>
                                 <input asp-for="Recipe.Title" class="form-control" />
                                 <span asp-validation-for="Recipe.Title" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label asp-for="Recipe.Description" class="form-label"></label>
+                                <label asp-for="Recipe.Description" class="form-label">@L["Description"]</label>
                                 <textarea asp-for="Recipe.Description" class="form-control" rows="2"></textarea>
                                 <span asp-validation-for="Recipe.Description" class="text-danger"></span>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label asp-for="Recipe.Category" class="form-label"></label>
+                                    <label asp-for="Recipe.Category" class="form-label">@L["Category"]</label>
                                     <input asp-for="Recipe.Category" class="form-control" list="categories" />
                                     <datalist id="categories">
-                                        <option value="Appetizers"></option>
-                                        <option value="Breakfast"></option>
-                                        <option value="Lunch"></option>
-                                        <option value="Dinner"></option>
-                                        <option value="Desserts"></option>
-                                        <option value="Soups"></option>
-                                        <option value="Salads"></option>
-                                        <option value="Pasta"></option>
-                                        <option value="Pizza"></option>
-                                        <option value="Curry"></option>
-                                        <option value="Seafood"></option>
-                                        <option value="Vegetarian"></option>
-                                        <option value="Vegan"></option>
+                                        <option value="@L["Appetizers"]"></option>
+                                        <option value="@L["Breakfast"]"></option>
+                                        <option value="@L["Lunch"]"></option>
+                                        <option value="@L["Dinner"]"></option>
+                                        <option value="@L["Desserts"]"></option>
+                                        <option value="@L["Soups"]"></option>
+                                        <option value="@L["Salads"]"></option>
+                                        <option value="@L["Pasta"]"></option>
+                                        <option value="@L["Pizza"]"></option>
+                                        <option value="@L["Curry"]"></option>
+                                        <option value="@L["Seafood"]"></option>
+                                        <option value="@L["Vegetarian"]"></option>
+                                        <option value="@L["Vegan"]"></option>
                                     </datalist>
                                     <span asp-validation-for="Recipe.Category" class="text-danger"></span>
                                 </div>
@@ -72,7 +73,7 @@
                             <!-- Image Section -->
                             <div class="card mb-3 border-info">
                                 <div class="card-header bg-info text-white">
-                                    <h6 class="mb-0"><i class="bi bi-image"></i> Recipe Image</h6>
+                                    <h6 class="mb-0"><i class="bi bi-image"></i> @L["UploadImage"]</h6>
                                 </div>
                                 <div class="card-body">
                                     @if (!string.IsNullOrEmpty(Model.Recipe.ImageUrl))
@@ -80,19 +81,18 @@
                                         <div class="mb-3 text-center">
                                             <img src="@Model.Recipe.ImageUrl" alt="Current recipe image" 
                                                  class="img-thumbnail" style="max-height: 200px;" />
-                                            <p class="text-muted small mt-1">Current image</p>
                                         </div>
                                     }
                                     
                                     <div class="mb-0">
                                         <label asp-for="ImageFile" class="form-label">
-                                            <i class="bi bi-upload"></i> @(string.IsNullOrEmpty(Model.Recipe.ImageUrl) ? "Upload Image" : "Upload New Image")
+                                            <i class="bi bi-upload"></i> @(string.IsNullOrEmpty(Model.Recipe.ImageUrl) ? L["UploadImage"] : L["UploadNewImage"])
                                         </label>
                                         <input asp-for="ImageFile" class="form-control" type="file" 
                                                accept="@string.Join(",", Model.AllowedExtensions)" />
                                         <span asp-validation-for="ImageFile" class="text-danger"></span>
                                         <div class="form-text">
-                                            Allowed: @string.Join(", ", Model.AllowedExtensions) | Max size: @Model.MaxFileSizeMB MB
+                                            @L["AllowedFormats"]: @string.Join(", ", Model.AllowedExtensions) | @L["MaxSize"]: @Model.MaxFileSizeMB MB
                                         </div>
                                     </div>
                                 </div>
@@ -100,52 +100,50 @@
 
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label asp-for="Recipe.PrepTimeMinutes" class="form-label"></label>
+                                    <label asp-for="Recipe.PrepTimeMinutes" class="form-label">@L["PrepTime"]</label>
                                     <div class="input-group">
                                         <input asp-for="Recipe.PrepTimeMinutes" class="form-control" type="number" min="1" max="1440" />
-                                        <span class="input-group-text">min</span>
+                                        <span class="input-group-text">@L["min"]</span>
                                     </div>
                                     <span asp-validation-for="Recipe.PrepTimeMinutes" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label asp-for="Recipe.CookTimeMinutes" class="form-label"></label>
+                                    <label asp-for="Recipe.CookTimeMinutes" class="form-label">@L["CookTime"]</label>
                                     <div class="input-group">
                                         <input asp-for="Recipe.CookTimeMinutes" class="form-control" type="number" min="1" max="1440" />
-                                        <span class="input-group-text">min</span>
+                                        <span class="input-group-text">@L["min"]</span>
                                     </div>
                                     <span asp-validation-for="Recipe.CookTimeMinutes" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label asp-for="Recipe.Servings" class="form-label"></label>
+                                    <label asp-for="Recipe.Servings" class="form-label">@L["Servings"]</label>
                                     <input asp-for="Recipe.Servings" class="form-control" type="number" min="1" max="100" />
                                     <span asp-validation-for="Recipe.Servings" class="text-danger"></span>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label asp-for="Recipe.Ingredients" class="form-label"></label>
+                                <label asp-for="Recipe.Ingredients" class="form-label">@L["Ingredients"]</label>
                                 <textarea asp-for="Recipe.Ingredients" class="form-control" rows="8"></textarea>
-                                <div class="form-text">Enter each ingredient on a new line</div>
                                 <span asp-validation-for="Recipe.Ingredients" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label asp-for="Recipe.Instructions" class="form-label"></label>
+                                <label asp-for="Recipe.Instructions" class="form-label">@L["Instructions"]</label>
                                 <textarea asp-for="Recipe.Instructions" class="form-control" rows="10"></textarea>
-                                <div class="form-text">Enter each step on a new line</div>
                                 <span asp-validation-for="Recipe.Instructions" class="text-danger"></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
                                 <a asp-page="../Details" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-secondary">
-                                    <i class="bi bi-arrow-left"></i> Cancel
+                                    <i class="bi bi-arrow-left"></i> @L["Cancel"]
                                 </a>
                                 <div>
                                     <a asp-page="Delete" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-danger me-2">
-                                        <i class="bi bi-trash"></i> Delete
+                                        <i class="bi bi-trash"></i> @L["Delete"]
                                     </a>
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="bi bi-check-circle"></i> Save Changes
+                                        <i class="bi bi-check-circle"></i> @L["SaveChanges"]
                                     </button>
                                 </div>
                             </div>
@@ -161,7 +159,7 @@
                         <h5 class="mb-0">
                             @if (Model.Recipe.IsVerified)
                             {
-                                <i class="bi bi-check-circle-fill"></i> <text>Verified</text>
+                                <i class="bi bi-check-circle-fill"></i> <text>@L["VerifiedRecipe"]</text>
                             }
                             else
                             {
@@ -173,12 +171,12 @@
                         @if (Model.Recipe.IsVerified)
                         {
                             <p class="text-success mb-0">
-                                <i class="bi bi-check-lg"></i> This recipe has been verified.
+                                <i class="bi bi-check-lg"></i> @L["VerifiedRecipe"]
                             </p>
                             @if (Model.Recipe.VerifiedAt.HasValue)
                             {
                                 <p class="text-muted small mt-2 mb-0">
-                                    Verified on @Model.Recipe.VerifiedAt.Value.ToString("MMMM d, yyyy h:mm tt")
+                                    @Model.Recipe.VerifiedAt.Value.ToString("MMMM d, yyyy h:mm tt")
                                 </p>
                             }
                         }
@@ -188,7 +186,7 @@
                             <form method="post" asp-page-handler="Verify">
                                 <input type="hidden" name="id" value="@Model.Recipe.Id" />
                                 <button type="submit" class="btn btn-success w-100">
-                                    <i class="bi bi-check-circle"></i> Verify Recipe
+                                    <i class="bi bi-check-circle"></i> Verify
                                 </button>
                             </form>
                         }

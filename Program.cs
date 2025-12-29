@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Recipe_Webpage;
 using Recipe_Webpage.Data;
+using Recipe_Webpage.Middleware;
 using Recipe_Webpage.Services;
 using System.Reflection;
 
@@ -27,6 +28,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Register the image service
 builder.Services.AddScoped<IImageService, ImageService>();
+
+// Register localization service
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ILocalizationService, LocalizationService>();
 
 // Add API Controllers
 builder.Services.AddControllers();
@@ -111,6 +116,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
+
+// Detect Chinese IPs and set language
+app.UseChinaIpDetection();
 
 // Enable Swagger for all environments (needed for Custom GPT Actions)
 app.UseSwagger(options =>

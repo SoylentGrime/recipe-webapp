@@ -1,12 +1,13 @@
 @page
 @model Recipe_Webpage.Pages.Recipes.PrintMultipleModel
+@inject Recipe_Webpage.Services.ILocalizationService L
 @{
-    ViewData["Title"] = "Print Recipes";
+    ViewData["Title"] = L["Print"];
     Layout = null; // Use no layout for cleaner printing
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@(L.IsChinese ? "zh" : "en")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -151,16 +152,16 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h4 class="mb-0">
-                        <i class="bi bi-printer"></i> Print Preview
-                        <small class="text-muted">(@Model.Recipes.Count recipe@(Model.Recipes.Count != 1 ? "s" : ""))</small>
+                        <i class="bi bi-printer"></i> @L["Print"]
+                        <small class="text-muted">(@Model.Recipes.Count)</small>
                     </h4>
                 </div>
                 <div>
                     <button onclick="window.print()" class="btn btn-primary">
-                        <i class="bi bi-printer"></i> Print Recipes
+                        <i class="bi bi-printer"></i> @L["Print"]
                     </button>
                     <a href="/Recipes" class="btn btn-outline-secondary ms-2">
-                        <i class="bi bi-arrow-left"></i> Back to Recipes
+                        <i class="bi bi-arrow-left"></i> @L["BackToRecipes"]
                     </a>
                 </div>
             </div>
@@ -171,8 +172,8 @@
     {
         <div class="container mt-4 no-print">
             <div class="alert alert-warning">
-                <i class="bi bi-exclamation-triangle"></i> No recipes selected for printing.
-                <a href="/Recipes" class="alert-link">Go back to select recipes.</a>
+                <i class="bi bi-exclamation-triangle"></i> @L["NoRecipesFound"]
+                <a href="/Recipes" class="alert-link">@L["BackToRecipes"]</a>
             </div>
         </div>
     }
@@ -196,24 +197,24 @@
 
                 <div class="recipe-info-grid">
                     <div class="info-item">
-                        <span class="info-label">Prep Time</span>
-                        <span class="info-value">@recipe.PrepTimeMinutes min</span>
+                        <span class="info-label">@L["PrepTime"]</span>
+                        <span class="info-value">@recipe.PrepTimeMinutes @L["min"]</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">Cook Time</span>
-                        <span class="info-value">@recipe.CookTimeMinutes min</span>
+                        <span class="info-label">@L["CookTime"]</span>
+                        <span class="info-value">@recipe.CookTimeMinutes @L["min"]</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">Total Time</span>
-                        <span class="info-value">@(recipe.PrepTimeMinutes + recipe.CookTimeMinutes) min</span>
+                        <span class="info-label">@L["TotalTime"]</span>
+                        <span class="info-value">@(recipe.PrepTimeMinutes + recipe.CookTimeMinutes) @L["min"]</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">Servings</span>
+                        <span class="info-label">@L["Servings"]</span>
                         <span class="info-value">@recipe.Servings</span>
                     </div>
                 </div>
 
-                <div class="section-title">Ingredients</div>
+                <div class="section-title">@L["Ingredients"]</div>
                 <ul class="ingredients-list">
                     @foreach (var ingredient in recipe.Ingredients.Split('\n', StringSplitOptions.RemoveEmptyEntries))
                     {
@@ -221,7 +222,7 @@
                     }
                 </ul>
 
-                <div class="section-title">Instructions</div>
+                <div class="section-title">@L["Instructions"]</div>
                 <ol class="instructions-list">
                     @foreach (var step in recipe.Instructions.Split('\n', StringSplitOptions.RemoveEmptyEntries))
                     {

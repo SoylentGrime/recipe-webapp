@@ -1,22 +1,23 @@
 @page "{id:int}"
 @model Recipe_Webpage.Pages.Recipes.DetailsModel
+@inject Recipe_Webpage.Services.ILocalizationService L
 @{
-    ViewData["Title"] = Model.Recipe?.Title ?? "Recipe Details";
+    ViewData["Title"] = Model.Recipe?.Title ?? L["ViewRecipe"];
 }
 
 @if (Model.Recipe == null)
 {
     <div class="alert alert-danger">
-        <i class="bi bi-exclamation-triangle"></i> Recipe not found.
+        <i class="bi bi-exclamation-triangle"></i> @L["RecipeNotFound"]
     </div>
-    <a asp-page="Index" class="btn btn-primary">Back to Recipes</a>
+    <a asp-page="Index" class="btn btn-primary">@L["BackToRecipes"]</a>
 }
 else
 {
     <div class="container">
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a asp-page="Index">Recipes</a></li>
+                <li class="breadcrumb-item"><a asp-page="Index">@L["Recipes"]</a></li>
                 @if (!string.IsNullOrEmpty(Model.Recipe.Category))
                 {
                     <li class="breadcrumb-item"><a asp-page="Index" asp-route-category="@Model.Recipe.Category">@Model.Recipe.Category</a></li>
@@ -43,10 +44,10 @@ else
                             </div>
                             <div class="btn-group edit-mode-only" style="display: none;">
                                 <a asp-page="Admin/Edit" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-primary">
-                                    <i class="bi bi-pencil"></i> Edit
+                                    <i class="bi bi-pencil"></i> @L["Edit"]
                                 </a>
                                 <a asp-page="Admin/Delete" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-danger">
-                                    <i class="bi bi-trash"></i> Delete
+                                    <i class="bi bi-trash"></i> @L["Delete"]
                                 </a>
                             </div>
                         </div>
@@ -61,7 +62,7 @@ else
                 <!-- Ingredients -->
                 <div class="card mb-4">
                     <div class="card-header bg-success text-white">
-                        <h4 class="mb-0"><i class="bi bi-basket"></i> Ingredients</h4>
+                        <h4 class="mb-0"><i class="bi bi-basket"></i> @L["Ingredients"]</h4>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
@@ -78,7 +79,7 @@ else
                 <!-- Instructions -->
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0"><i class="bi bi-list-ol"></i> Instructions</h4>
+                        <h4 class="mb-0"><i class="bi bi-list-ol"></i> @L["Instructions"]</h4>
                     </div>
                     <div class="card-body">
                         <ol class="instruction-list">
@@ -105,19 +106,19 @@ else
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between">
-                            <span><i class="bi bi-hourglass-split text-primary"></i> Prep Time</span>
-                            <strong>@Model.Recipe.PrepTimeMinutes min</strong>
+                            <span><i class="bi bi-hourglass-split text-primary"></i> @L["PrepTime"]</span>
+                            <strong>@Model.Recipe.PrepTimeMinutes @L["min"]</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <span><i class="bi bi-fire text-danger"></i> Cook Time</span>
-                            <strong>@Model.Recipe.CookTimeMinutes min</strong>
+                            <span><i class="bi bi-fire text-danger"></i> @L["CookTime"]</span>
+                            <strong>@Model.Recipe.CookTimeMinutes @L["min"]</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <span><i class="bi bi-clock text-success"></i> Total Time</span>
-                            <strong>@(Model.Recipe.PrepTimeMinutes + Model.Recipe.CookTimeMinutes) min</strong>
+                            <span><i class="bi bi-clock text-success"></i> @L["TotalTime"]</span>
+                            <strong>@(Model.Recipe.PrepTimeMinutes + Model.Recipe.CookTimeMinutes) @L["min"]</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
-                            <span><i class="bi bi-people text-info"></i> Servings</span>
+                            <span><i class="bi bi-people text-info"></i> @L["Servings"]</span>
                             <strong>@Model.Recipe.Servings</strong>
                         </li>
                     </ul>
@@ -132,11 +133,11 @@ else
 
                 <!-- Print Button -->
                 <button onclick="window.print()" class="btn btn-outline-secondary w-100 mb-4">
-                    <i class="bi bi-printer"></i> Print Recipe
+                    <i class="bi bi-printer"></i> @L["Print"]
                 </button>
 
                 <a asp-page="Index" class="btn btn-primary w-100">
-                    <i class="bi bi-arrow-left"></i> Back to Recipes
+                    <i class="bi bi-arrow-left"></i> @L["BackToRecipes"]
                 </a>
             </div>
         </div>
