@@ -27,8 +27,9 @@ public class ChinaIpDetectionMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var culture = "en";
+        var shouldSetCookie = false;
         
-        // Check query string override first (for testing)
+        // Check query string override first (for manual language selection)
         if (context.Request.Query.ContainsKey("lang"))
         {
             var lang = context.Request.Query["lang"].ToString().ToLower();
@@ -36,6 +37,11 @@ public class ChinaIpDetectionMiddleware
             {
                 culture = "zh";
             }
+            else
+            {
+                culture = "en";
+            }
+            shouldSetCookie = true; // Remember the manual selection
         }
         // Check cookie for language preference
         else if (context.Request.Cookies.ContainsKey("lang"))
@@ -55,6 +61,17 @@ public class ChinaIpDetectionMiddleware
                 culture = "zh";
                 _logger.LogInformation("Chinese IP detected: {IpAddress}", ipAddress);
             }
+        }
+        
+        // Set cookie if language was manually selected
+        if (shouldSetCookie)
+        {
+            context.Response.Cookies.Append("lang", culture, new CookieOptions
+            {
+                Expires = DateTimeOffset.UtcNow.AddYears(1),
+                IsEssential = true,
+                SameSite = SameSiteMode.Lax
+            });
         }
         
         // Store culture in HttpContext for use by LocalizationService
