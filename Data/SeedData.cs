@@ -12,8 +12,8 @@ public static class SeedData
         using var context = new ApplicationDbContext(
             serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
 
-        // Ensure database is created (works for both SQLite and SQL Server)
-        await context.Database.EnsureCreatedAsync();
+        // Apply any pending migrations (this will also create the database if it doesn't exist)
+        await context.Database.MigrateAsync();
 
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
