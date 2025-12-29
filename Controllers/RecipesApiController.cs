@@ -12,7 +12,7 @@ namespace Recipe_Webpage.Controllers;
 /// API endpoints for managing recipes. Compatible with OpenAI Custom GPT Actions.
 /// </summary>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/recipes")]
 [Produces("application/json")]
 public class RecipesApiController : ControllerBase
 {
