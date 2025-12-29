@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
 using Recipe_Webpage.Data;
+using Recipe_Webpage.Services;
 
 namespace Recipe_Webpage;
 
@@ -66,6 +67,9 @@ public static class SeedData
                 await userManager.AddToRoleAsync(adminUser, "Admin");
             }
         }
+
+        // One-time translation migration: translate existing recipes that don't have Chinese translations
+        await TranslateExistingRecipesAsync(serviceProvider, context);
 
         // Seed sample recipes if none exist
         if (!await context.Recipes.AnyAsync())
@@ -1291,6 +1295,74 @@ public static class SeedData
             );
 
             await context.SaveChangesAsync();
+        }
+    }
+
+    private static async Task TranslateExistingRecipesAsync(IServiceProvider serviceProvider, ApplicationDbContext context)
+    {
+        var logger = serviceProvider.GetService<ILogger<ApplicationDbContext>>();
+        var translationService = serviceProvider.GetService<ITranslationService>();
+
+        if (translationService == null || !translationService.IsConfigured)
+        {
+            logger?.LogInformation("Translation service not configured, skipping recipe translation");
+            return;
+        }
+
+        try
+        {
+            // Find recipes that have English content but no Chinese translations
+            var recipesToTranslate = await context.Recipes
+                .Where(r => !string.IsNullOrEmpty(r.Title) && string.IsNullOrEmpty(r.TitleZh))
+                .ToListAsync();
+
+            if (recipesToTranslate.Count == 0)
+            {
+                logger?.LogInformation("No recipes need translation");
+                return;
+            }
+
+            logger?.LogInformation("Translating {Count} recipes to Chinese...", recipesToTranslate.Count);
+
+            foreach (var recipe in recipesToTranslate)
+            {
+                try
+                {
+                    var (titleZh, descriptionZh, ingredientsZh, instructionsZh, categoryZh) = 
+                        await translationService.TranslateRecipeFieldsAsync(
+                            recipe.Title,
+                            recipe.Description,
+                            recipe.Ingredients,
+                            recipe.Instructions,
+                            recipe.Category,
+                            "en",
+                            "zh-Hans");
+
+                    recipe.TitleZh = titleZh;
+                    recipe.DescriptionZh = descriptionZh;
+                    recipe.IngredientsZh = ingredientsZh;
+                    recipe.InstructionsZh = instructionsZh;
+                    recipe.CategoryZh = categoryZh;
+
+                    logger?.LogInformation("Translated recipe: {Title}", recipe.Title);
+                }
+                catch (Exception ex)
+                {
+                    logger?.LogWarning(ex, "Failed to translate recipe: {Title}", recipe.Title);
+                    // Continue with next recipe
+                }
+
+                // Small delay to avoid rate limiting on free tier
+                await Task.Delay(100);
+            }
+
+            await context.SaveChangesAsync();
+            logger?.LogInformation("Recipe translation complete");
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex, "Error during recipe translation migration");
+            // Don't throw - app should still start
         }
     }
 
