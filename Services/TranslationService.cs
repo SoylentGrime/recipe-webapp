@@ -106,56 +106,62 @@ public class AzureTranslationService : ITranslationService
             var from = MapLanguageCode(fromLanguage);
             var to = MapLanguageCode(toLanguage);
 
-            // Build list of texts to translate (non-empty ones)
-            var textsToTranslate = new List<(string key, string text)>();
-            
+            // Translate each field individually to avoid size limits
+            string? titleZh = null, descriptionZh = null, ingredientsZh = null, instructionsZh = null, categoryZh = null;
+
             if (!string.IsNullOrWhiteSpace(title))
-                textsToTranslate.Add(("title", title));
-            if (!string.IsNullOrWhiteSpace(description))
-                textsToTranslate.Add(("description", description));
-            if (!string.IsNullOrWhiteSpace(ingredients))
-                textsToTranslate.Add(("ingredients", ingredients));
-            if (!string.IsNullOrWhiteSpace(instructions))
-                textsToTranslate.Add(("instructions", instructions));
-            if (!string.IsNullOrWhiteSpace(category))
-                textsToTranslate.Add(("category", category));
-
-            if (textsToTranslate.Count == 0)
             {
-                return (null, null, null, null, null);
+                titleZh = await TranslateSingleTextAsync(title, to, from);
             }
-
-            // Translate all at once for efficiency
-            var texts = textsToTranslate.Select(t => t.text).ToList();
-            var response = await _client.TranslateAsync(new[] { to }, texts, sourceLanguage: from);
-
-            var results = new Dictionary<string, string?>();
             
-            if (response?.Value != null)
+            if (!string.IsNullOrWhiteSpace(description))
             {
-                for (int i = 0; i < textsToTranslate.Count && i < response.Value.Count; i++)
-                {
-                    var translations = response.Value[i].Translations;
-                    if (translations != null && translations.Count > 0)
-                    {
-                        results[textsToTranslate[i].key] = translations[0].Text;
-                    }
-                }
+                descriptionZh = await TranslateSingleTextAsync(description, to, from);
+            }
+            
+            if (!string.IsNullOrWhiteSpace(ingredients))
+            {
+                ingredientsZh = await TranslateSingleTextAsync(ingredients, to, from);
+            }
+            
+            if (!string.IsNullOrWhiteSpace(instructions))
+            {
+                instructionsZh = await TranslateSingleTextAsync(instructions, to, from);
+            }
+            
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                categoryZh = await TranslateSingleTextAsync(category, to, from);
             }
 
-            return (
-                results.GetValueOrDefault("title"),
-                results.GetValueOrDefault("description"),
-                results.GetValueOrDefault("ingredients"),
-                results.GetValueOrDefault("instructions"),
-                results.GetValueOrDefault("category")
-            );
+            return (titleZh, descriptionZh, ingredientsZh, instructionsZh, categoryZh);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Batch translation failed from {From} to {To}", fromLanguage, toLanguage);
+            _logger.LogError(ex, "Recipe translation failed from {From} to {To}", fromLanguage, toLanguage);
             return (null, null, null, null, null);
         }
+    }
+
+    private async Task<string?> TranslateSingleTextAsync(string text, string to, string from)
+    {
+        try
+        {
+            var response = await _client!.TranslateAsync(to, text, from);
+            if (response?.Value != null && response.Value.Count > 0)
+            {
+                var translations = response.Value[0].Translations;
+                if (translations != null && translations.Count > 0)
+                {
+                    return translations[0].Text;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to translate text segment");
+        }
+        return null;
     }
 
     private static string MapLanguageCode(string code)
