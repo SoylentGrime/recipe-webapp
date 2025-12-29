@@ -12,8 +12,29 @@ public static class SeedData
         using var context = new ApplicationDbContext(
             serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>());
 
-        // Apply any pending migrations (this will also create the database if it doesn't exist)
-        await context.Database.MigrateAsync();
+        // Try to apply migrations, with fallback for databases created with EnsureCreated
+        try
+        {
+            await context.Database.MigrateAsync();
+        }
+        catch (Exception ex)
+        {
+            // If migration fails (e.g., tables already exist from EnsureCreated),
+            // try to add the new columns directly
+            var logger = serviceProvider.GetService<ILogger<ApplicationDbContext>>();
+            logger?.LogWarning(ex, "Migration failed, attempting to add columns directly");
+            
+            try
+            {
+                // Check if new columns exist, if not add them
+                await AddMultiLanguageColumnsIfNotExistAsync(context);
+            }
+            catch (Exception innerEx)
+            {
+                logger?.LogError(innerEx, "Failed to add columns directly");
+                // Continue anyway - the app might still work if columns already exist
+            }
+        }
 
         var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
         var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
@@ -1270,6 +1291,36 @@ public static class SeedData
             );
 
             await context.SaveChangesAsync();
+        }
+    }
+
+    private static async Task AddMultiLanguageColumnsIfNotExistAsync(ApplicationDbContext context)
+    {
+        // Try to add each column - SQL Server will error if column exists, which we catch and ignore
+        var columns = new[]
+        {
+            ("TitleZh", "NVARCHAR(200)"),
+            ("DescriptionZh", "NVARCHAR(500)"),
+            ("IngredientsZh", "NVARCHAR(MAX)"),
+            ("InstructionsZh", "NVARCHAR(MAX)"),
+            ("CategoryZh", "NVARCHAR(100)")
+        };
+
+        foreach (var (columnName, columnType) in columns)
+        {
+            try
+            {
+                var sql = $@"
+                    IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Recipes]') AND name = '{columnName}')
+                    BEGIN
+                        ALTER TABLE [dbo].[Recipes] ADD [{columnName}] {columnType} NULL
+                    END";
+                await context.Database.ExecuteSqlRawAsync(sql);
+            }
+            catch
+            {
+                // Column might already exist or other error - continue
+            }
         }
     }
 }
