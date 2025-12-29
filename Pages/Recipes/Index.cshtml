@@ -79,9 +79,13 @@
     <!-- Recipe Cards -->
     @if (Model.Recipes.Any())
     {
+        var culture = L.CurrentCulture;
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach (var recipe in Model.Recipes)
             {
+                var recipeTitle = recipe.GetTitle(culture);
+                var recipeDescription = recipe.GetDescription(culture);
+                var recipeCategory = recipe.GetCategory(culture);
                 <div class="col">
                     <div class="card h-100 recipe-card position-relative">
                         <!-- Selection Checkbox -->
@@ -94,7 +98,7 @@
                         </div>
                         @if (!string.IsNullOrEmpty(recipe.ImageUrl))
                         {
-                            <img src="@recipe.ImageUrl" class="card-img-top" alt="@recipe.Title" style="height: 200px; object-fit: cover;">
+                            <img src="@recipe.ImageUrl" class="card-img-top" alt="@recipeTitle" style="height: 200px; object-fit: cover;">
                         }
                         else
                         {
@@ -104,18 +108,18 @@
                         }
                         <div class="card-body">
                             <h5 class="card-title">
-                                @recipe.Title
+                                @recipeTitle
                                 @if (recipe.IsVerified)
                                 {
                                     <i class="bi bi-check-circle-fill text-success" title="@L["VerifiedRecipe"]"></i>
                                 }
                             </h5>
-                            @if (!string.IsNullOrEmpty(recipe.Category))
+                            @if (!string.IsNullOrEmpty(recipeCategory))
                             {
-                                <span class="badge bg-info mb-2">@recipe.Category</span>
+                                <span class="badge bg-info mb-2">@recipeCategory</span>
                             }
                             <p class="card-text text-muted">
-                                @(recipe.Description?.Length > 100 ? recipe.Description.Substring(0, 100) + "..." : recipe.Description)
+                                @(recipeDescription?.Length > 100 ? recipeDescription.Substring(0, 100) + "..." : recipeDescription)
                             </p>
                             <div class="d-flex justify-content-between text-muted small">
                                 <span><i class="bi bi-clock"></i> @(recipe.PrepTimeMinutes + recipe.CookTimeMinutes) @L["min"]</span>

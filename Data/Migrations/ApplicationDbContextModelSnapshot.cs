@@ -223,6 +223,10 @@ namespace Recipe_Webpage.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CategoryZh")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("CookTimeMinutes")
                         .HasColumnType("INTEGER");
 
@@ -230,6 +234,10 @@ namespace Recipe_Webpage.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DescriptionZh")
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
@@ -241,8 +249,14 @@ namespace Recipe_Webpage.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("IngredientsZh")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Instructions")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InstructionsZh")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsVerified")
@@ -256,6 +270,10 @@ namespace Recipe_Webpage.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TitleZh")
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 

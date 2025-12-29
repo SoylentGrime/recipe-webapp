@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
 using Recipe_Webpage.Data;
 using Recipe_Webpage.Services;
+using System.Text.RegularExpressions;
 
 namespace Recipe_Webpage.Pages.Recipes.Admin;
 
@@ -11,11 +12,13 @@ public class EditModel : PageModel
 {
     private readonly ApplicationDbContext _context;
     private readonly IImageService _imageService;
+    private readonly ITranslationService _translationService;
 
-    public EditModel(ApplicationDbContext context, IImageService imageService)
+    public EditModel(ApplicationDbContext context, IImageService imageService, ITranslationService translationService)
     {
         _context = context;
         _imageService = imageService;
+        _translationService = translationService;
     }
 
     [BindProperty]
@@ -97,6 +100,9 @@ public class EditModel : PageModel
         recipeToUpdate.Category = Recipe.Category;
         recipeToUpdate.UpdatedAt = DateTime.UtcNow;
 
+        // Auto-translate based on input language
+        await AutoTranslateRecipeAsync(recipeToUpdate);
+
         try
         {
             await _context.SaveChangesAsync();
@@ -111,6 +117,62 @@ public class EditModel : PageModel
         }
 
         return RedirectToPage("../Details", new { id = Recipe.Id });
+    }
+
+    private async Task AutoTranslateRecipeAsync(Recipe recipe)
+    {
+        if (!_translationService.IsConfigured)
+        {
+            return;
+        }
+
+        // Detect if the input is Chinese or English based on the title
+        bool isChinese = ContainsChinese(recipe.Title);
+
+        if (isChinese)
+        {
+            // Input is Chinese - store as Chinese fields and translate to English
+            recipe.TitleZh = recipe.Title;
+            recipe.DescriptionZh = recipe.Description;
+            recipe.IngredientsZh = recipe.Ingredients;
+            recipe.InstructionsZh = recipe.Instructions;
+            recipe.CategoryZh = recipe.Category;
+
+            // Translate to English
+            var (titleEn, descriptionEn, ingredientsEn, instructionsEn, categoryEn) = 
+                await _translationService.TranslateRecipeFieldsAsync(
+                    recipe.Title, recipe.Description, recipe.Ingredients, recipe.Instructions, recipe.Category,
+                    "zh", "en");
+
+            recipe.Title = titleEn ?? recipe.Title;
+            recipe.Description = descriptionEn ?? recipe.Description;
+            recipe.Ingredients = ingredientsEn ?? recipe.Ingredients;
+            recipe.Instructions = instructionsEn ?? recipe.Instructions;
+            recipe.Category = categoryEn ?? recipe.Category;
+        }
+        else
+        {
+            // Input is English - translate to Chinese
+            var (titleZh, descriptionZh, ingredientsZh, instructionsZh, categoryZh) = 
+                await _translationService.TranslateRecipeFieldsAsync(
+                    recipe.Title, recipe.Description, recipe.Ingredients, recipe.Instructions, recipe.Category,
+                    "en", "zh");
+
+            recipe.TitleZh = titleZh;
+            recipe.DescriptionZh = descriptionZh;
+            recipe.IngredientsZh = ingredientsZh;
+            recipe.InstructionsZh = instructionsZh;
+            recipe.CategoryZh = categoryZh;
+        }
+    }
+
+    private static bool ContainsChinese(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return false;
+
+        // Check for Chinese characters (CJK Unified Ideographs)
+        return Regex.IsMatch(text, @"[\u4e00-\u9fff]");
     }
 
     private async Task<bool> RecipeExistsAsync(int id)

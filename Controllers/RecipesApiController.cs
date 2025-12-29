@@ -4,6 +4,7 @@ using Recipe_Webpage.Data;
 using Recipe_Webpage.Services;
 using RecipeApp.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace Recipe_Webpage.Controllers;
 
@@ -17,11 +18,13 @@ public class RecipesApiController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly IImageService _imageService;
+    private readonly ITranslationService _translationService;
 
-    public RecipesApiController(ApplicationDbContext context, IImageService imageService)
+    public RecipesApiController(ApplicationDbContext context, IImageService imageService, ITranslationService translationService)
     {
         _context = context;
         _imageService = imageService;
+        _translationService = translationService;
     }
 
     /// <summary>
@@ -67,13 +70,18 @@ public class RecipesApiController : ControllerBase
             {
                 Id = r.Id,
                 Title = r.Title,
+                TitleZh = r.TitleZh,
                 Description = r.Description,
+                DescriptionZh = r.DescriptionZh,
                 Ingredients = r.Ingredients,
+                IngredientsZh = r.IngredientsZh,
                 Instructions = r.Instructions,
+                InstructionsZh = r.InstructionsZh,
                 PrepTimeMinutes = r.PrepTimeMinutes,
                 CookTimeMinutes = r.CookTimeMinutes,
                 Servings = r.Servings,
                 Category = r.Category,
+                CategoryZh = r.CategoryZh,
                 ImageUrl = r.ImageUrl,
                 IsVerified = r.IsVerified,
                 CreatedAt = r.CreatedAt,
@@ -109,22 +117,7 @@ public class RecipesApiController : ControllerBase
             return NotFound(new ErrorResponse { Error = "Recipe not found", Message = $"No recipe exists with ID {id}" });
         }
 
-        return Ok(new RecipeDto
-        {
-            Id = recipe.Id,
-            Title = recipe.Title,
-            Description = recipe.Description,
-            Ingredients = recipe.Ingredients,
-            Instructions = recipe.Instructions,
-            PrepTimeMinutes = recipe.PrepTimeMinutes,
-            CookTimeMinutes = recipe.CookTimeMinutes,
-            Servings = recipe.Servings,
-            Category = recipe.Category,
-            ImageUrl = recipe.ImageUrl,
-            IsVerified = recipe.IsVerified,
-            CreatedAt = recipe.CreatedAt,
-            UpdatedAt = recipe.UpdatedAt
-        });
+        return Ok(ToRecipeDto(recipe));
     }
 
     /// <summary>
@@ -181,25 +174,13 @@ public class RecipesApiController : ControllerBase
             IsVerified = false
         };
 
+        // Auto-translate based on input language
+        await AutoTranslateRecipeAsync(recipe);
+
         _context.Recipes.Add(recipe);
         await _context.SaveChangesAsync();
 
-        var dto = new RecipeDto
-        {
-            Id = recipe.Id,
-            Title = recipe.Title,
-            Description = recipe.Description,
-            Ingredients = recipe.Ingredients,
-            Instructions = recipe.Instructions,
-            PrepTimeMinutes = recipe.PrepTimeMinutes,
-            CookTimeMinutes = recipe.CookTimeMinutes,
-            Servings = recipe.Servings,
-            Category = recipe.Category,
-            ImageUrl = recipe.ImageUrl,
-            IsVerified = recipe.IsVerified,
-            CreatedAt = recipe.CreatedAt,
-            UpdatedAt = recipe.UpdatedAt
-        };
+        var dto = ToRecipeDto(recipe);
 
         return CreatedAtAction(nameof(GetRecipe), new { id = recipe.Id }, dto);
     }
@@ -247,24 +228,12 @@ public class RecipesApiController : ControllerBase
         
         recipe.UpdatedAt = DateTime.UtcNow;
 
+        // Auto-translate based on input language
+        await AutoTranslateRecipeAsync(recipe);
+
         await _context.SaveChangesAsync();
 
-        return Ok(new RecipeDto
-        {
-            Id = recipe.Id,
-            Title = recipe.Title,
-            Description = recipe.Description,
-            Ingredients = recipe.Ingredients,
-            Instructions = recipe.Instructions,
-            PrepTimeMinutes = recipe.PrepTimeMinutes,
-            CookTimeMinutes = recipe.CookTimeMinutes,
-            Servings = recipe.Servings,
-            Category = recipe.Category,
-            ImageUrl = recipe.ImageUrl,
-            IsVerified = recipe.IsVerified,
-            CreatedAt = recipe.CreatedAt,
-            UpdatedAt = recipe.UpdatedAt
-        });
+        return Ok(ToRecipeDto(recipe));
     }
 
     /// <summary>
@@ -320,22 +289,7 @@ public class RecipesApiController : ControllerBase
         recipe.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
 
-        return Ok(new RecipeDto
-        {
-            Id = recipe.Id,
-            Title = recipe.Title,
-            Description = recipe.Description,
-            Ingredients = recipe.Ingredients,
-            Instructions = recipe.Instructions,
-            PrepTimeMinutes = recipe.PrepTimeMinutes,
-            CookTimeMinutes = recipe.CookTimeMinutes,
-            Servings = recipe.Servings,
-            Category = recipe.Category,
-            ImageUrl = recipe.ImageUrl,
-            IsVerified = recipe.IsVerified,
-            CreatedAt = recipe.CreatedAt,
-            UpdatedAt = recipe.UpdatedAt
-        });
+        return Ok(ToRecipeDto(recipe));
     }
 
     /// <summary>
@@ -367,22 +321,7 @@ public class RecipesApiController : ControllerBase
         recipe.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
 
-        return Ok(new RecipeDto
-        {
-            Id = recipe.Id,
-            Title = recipe.Title,
-            Description = recipe.Description,
-            Ingredients = recipe.Ingredients,
-            Instructions = recipe.Instructions,
-            PrepTimeMinutes = recipe.PrepTimeMinutes,
-            CookTimeMinutes = recipe.CookTimeMinutes,
-            Servings = recipe.Servings,
-            Category = recipe.Category,
-            ImageUrl = recipe.ImageUrl,
-            IsVerified = recipe.IsVerified,
-            CreatedAt = recipe.CreatedAt,
-            UpdatedAt = recipe.UpdatedAt
-        });
+        return Ok(ToRecipeDto(recipe));
     }
 
     /// <summary>
@@ -487,28 +426,95 @@ public class RecipesApiController : ControllerBase
             recipe.UpdatedAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();
 
-            return Ok(new RecipeDto
-            {
-                Id = recipe.Id,
-                Title = recipe.Title,
-                Description = recipe.Description,
-                Ingredients = recipe.Ingredients,
-                Instructions = recipe.Instructions,
-                PrepTimeMinutes = recipe.PrepTimeMinutes,
-                CookTimeMinutes = recipe.CookTimeMinutes,
-                Servings = recipe.Servings,
-                Category = recipe.Category,
-                ImageUrl = recipe.ImageUrl,
-                IsVerified = recipe.IsVerified,
-                CreatedAt = recipe.CreatedAt,
-                UpdatedAt = recipe.UpdatedAt
-            });
+            return Ok(ToRecipeDto(recipe));
         }
         catch (Exception)
         {
             return BadRequest(new ErrorResponse { Error = "Upload failed", Message = "Failed to save image. Please try again." });
         }
     }
+
+    #region Helper Methods
+
+    private static RecipeDto ToRecipeDto(Recipe recipe) => new()
+    {
+        Id = recipe.Id,
+        Title = recipe.Title,
+        TitleZh = recipe.TitleZh,
+        Description = recipe.Description,
+        DescriptionZh = recipe.DescriptionZh,
+        Ingredients = recipe.Ingredients,
+        IngredientsZh = recipe.IngredientsZh,
+        Instructions = recipe.Instructions,
+        InstructionsZh = recipe.InstructionsZh,
+        PrepTimeMinutes = recipe.PrepTimeMinutes,
+        CookTimeMinutes = recipe.CookTimeMinutes,
+        Servings = recipe.Servings,
+        Category = recipe.Category,
+        CategoryZh = recipe.CategoryZh,
+        ImageUrl = recipe.ImageUrl,
+        IsVerified = recipe.IsVerified,
+        CreatedAt = recipe.CreatedAt,
+        UpdatedAt = recipe.UpdatedAt
+    };
+
+    private async Task AutoTranslateRecipeAsync(Recipe recipe)
+    {
+        if (!_translationService.IsConfigured)
+        {
+            return;
+        }
+
+        // Detect if the input is Chinese or English based on the title
+        bool isChinese = ContainsChinese(recipe.Title);
+
+        if (isChinese)
+        {
+            // Input is Chinese - store as Chinese fields and translate to English
+            recipe.TitleZh = recipe.Title;
+            recipe.DescriptionZh = recipe.Description;
+            recipe.IngredientsZh = recipe.Ingredients;
+            recipe.InstructionsZh = recipe.Instructions;
+            recipe.CategoryZh = recipe.Category;
+
+            // Translate to English
+            var (titleEn, descriptionEn, ingredientsEn, instructionsEn, categoryEn) = 
+                await _translationService.TranslateRecipeFieldsAsync(
+                    recipe.Title, recipe.Description, recipe.Ingredients, recipe.Instructions, recipe.Category,
+                    "zh", "en");
+
+            recipe.Title = titleEn ?? recipe.Title;
+            recipe.Description = descriptionEn ?? recipe.Description;
+            recipe.Ingredients = ingredientsEn ?? recipe.Ingredients;
+            recipe.Instructions = instructionsEn ?? recipe.Instructions;
+            recipe.Category = categoryEn ?? recipe.Category;
+        }
+        else
+        {
+            // Input is English - translate to Chinese
+            var (titleZh, descriptionZh, ingredientsZh, instructionsZh, categoryZh) = 
+                await _translationService.TranslateRecipeFieldsAsync(
+                    recipe.Title, recipe.Description, recipe.Ingredients, recipe.Instructions, recipe.Category,
+                    "en", "zh");
+
+            recipe.TitleZh = titleZh;
+            recipe.DescriptionZh = descriptionZh;
+            recipe.IngredientsZh = ingredientsZh;
+            recipe.InstructionsZh = instructionsZh;
+            recipe.CategoryZh = categoryZh;
+        }
+    }
+
+    private static bool ContainsChinese(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return false;
+
+        // Check for Chinese characters (CJK Unified Ideographs)
+        return Regex.IsMatch(text, @"[\u4e00-\u9fff]");
+    }
+
+    #endregion
 }
 
 #region DTOs for OpenAPI Schema
@@ -522,21 +528,37 @@ public class RecipeDto
     /// <example>1</example>
     public int Id { get; set; }
 
-    /// <summary>Recipe title</summary>
+    /// <summary>Recipe title (English)</summary>
     /// <example>Chocolate Chip Cookies</example>
     public string Title { get; set; } = string.Empty;
 
-    /// <summary>Brief description of the recipe</summary>
+    /// <summary>Recipe title (Chinese)</summary>
+    /// <example>巧克力曲奇饼干</example>
+    public string? TitleZh { get; set; }
+
+    /// <summary>Brief description of the recipe (English)</summary>
     /// <example>Classic homemade chocolate chip cookies that are soft and chewy.</example>
     public string? Description { get; set; }
 
-    /// <summary>List of ingredients, one per line</summary>
+    /// <summary>Brief description of the recipe (Chinese)</summary>
+    /// <example>经典自制巧克力曲奇饼干，柔软耐嚼。</example>
+    public string? DescriptionZh { get; set; }
+
+    /// <summary>List of ingredients, one per line (English)</summary>
     /// <example>2 cups flour\n1 cup sugar\n1 cup butter</example>
     public string Ingredients { get; set; } = string.Empty;
 
-    /// <summary>Step-by-step cooking instructions</summary>
+    /// <summary>List of ingredients, one per line (Chinese)</summary>
+    /// <example>2杯面粉\n1杯糖\n1杯黄油</example>
+    public string? IngredientsZh { get; set; }
+
+    /// <summary>Step-by-step cooking instructions (English)</summary>
     /// <example>1. Preheat oven to 375°F.\n2. Mix dry ingredients.\n3. Add wet ingredients.</example>
     public string Instructions { get; set; } = string.Empty;
+
+    /// <summary>Step-by-step cooking instructions (Chinese)</summary>
+    /// <example>1. 预热烤箱至190°C。\n2. 混合干成分。\n3. 加入湿成分。</example>
+    public string? InstructionsZh { get; set; }
 
     /// <summary>Preparation time in minutes</summary>
     /// <example>15</example>
@@ -550,9 +572,13 @@ public class RecipeDto
     /// <example>24</example>
     public int Servings { get; set; }
 
-    /// <summary>Recipe category</summary>
+    /// <summary>Recipe category (English)</summary>
     /// <example>Cookies</example>
     public string? Category { get; set; }
+
+    /// <summary>Recipe category (Chinese)</summary>
+    /// <example>饼干</example>
+    public string? CategoryZh { get; set; }
 
     /// <summary>URL to recipe image</summary>
     /// <example>/images/recipes/chocolate-chip-cookies.jpg</example>

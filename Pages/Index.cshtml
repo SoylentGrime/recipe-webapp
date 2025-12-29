@@ -59,6 +59,7 @@
     <!-- Recent Recipes Preview -->
     @if (Model.RecentRecipes.Any())
     {
+        var culture = L.CurrentCulture;
         <div class="py-5">
             <h2 class="text-center mb-4">
                 <i class="bi bi-star"></i> @L["RecentlyAdded"]
@@ -66,11 +67,13 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                 @foreach (var recipe in Model.RecentRecipes)
                 {
+                    var recipeTitle = recipe.GetTitle(culture);
+                    var recipeCategory = recipe.GetCategory(culture);
                     <div class="col">
                         <div class="card h-100">
                             @if (!string.IsNullOrEmpty(recipe.ImageUrl))
                             {
-                                <img src="@recipe.ImageUrl" class="card-img-top" alt="@recipe.Title" style="height: 150px; object-fit: cover;">
+                                <img src="@recipe.ImageUrl" class="card-img-top" alt="@recipeTitle" style="height: 150px; object-fit: cover;">
                             }
                             else
                             {
@@ -79,10 +82,10 @@
                                 </div>
                             }
                             <div class="card-body">
-                                <h5 class="card-title">@recipe.Title</h5>
-                                @if (!string.IsNullOrEmpty(recipe.Category))
+                                <h5 class="card-title">@recipeTitle</h5>
+                                @if (!string.IsNullOrEmpty(recipeCategory))
                                 {
-                                    <span class="badge bg-info">@recipe.Category</span>
+                                    <span class="badge bg-info">@recipeCategory</span>
                                 }
                             </div>
                             <div class="card-footer bg-transparent">

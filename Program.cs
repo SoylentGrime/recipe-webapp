@@ -33,6 +33,9 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ILocalizationService, LocalizationService>();
 
+// Register translation service
+builder.Services.AddSingleton<ITranslationService, AzureTranslationService>();
+
 // Add API Controllers
 builder.Services.AddControllers();
 
