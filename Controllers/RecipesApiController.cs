@@ -482,6 +482,12 @@ public class RecipesApiController : ControllerBase
                         "en",
                         "zh-Hans");
 
+                // Check if translation returned any results
+                if (string.IsNullOrEmpty(titleZh))
+                {
+                    return BadRequest(new ErrorResponse { Error = "Translation failed", Message = "Translation service returned empty results. Please try again later." });
+                }
+
                 recipe.TitleZh = titleZh;
                 recipe.DescriptionZh = descriptionZh;
                 recipe.IngredientsZh = ingredientsZh;
@@ -505,6 +511,12 @@ public class RecipesApiController : ControllerBase
                         recipe.CategoryZh,
                         "zh-Hans",
                         "en");
+
+                // Check if translation returned any results
+                if (string.IsNullOrEmpty(title))
+                {
+                    return BadRequest(new ErrorResponse { Error = "Translation failed", Message = "Translation service returned empty results. Please try again later." });
+                }
 
                 recipe.Title = title ?? recipe.Title;
                 recipe.Description = description;

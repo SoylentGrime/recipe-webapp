@@ -204,8 +204,17 @@ else
                     // Reload the page to show the translated content
                     window.location.reload();
                 } else {
-                    const error = await response.json();
-                    alert((targetLang === 'zh' ? '翻译失败: ' : 'Translation failed: ') + (error.message || error.error));
+                    let errorMessage = `${targetLang === 'zh' ? '服务器错误' : 'Server error'} (${response.status})`;
+                    try {
+                        const text = await response.text();
+                        if (text) {
+                            const error = JSON.parse(text);
+                            errorMessage = error.message || error.error || errorMessage;
+                        }
+                    } catch (parseErr) {
+                        // Response body was empty or not valid JSON, use default message
+                    }
+                    alert((targetLang === 'zh' ? '翻译失败: ' : 'Translation failed: ') + errorMessage);
                     btn.disabled = false;
                     btn.innerHTML = originalText;
                 }
