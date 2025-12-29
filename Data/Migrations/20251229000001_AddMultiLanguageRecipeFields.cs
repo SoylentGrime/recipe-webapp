@@ -13,33 +13,28 @@ namespace Recipe_Webpage.Data.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "TitleZh",
                 table: "Recipes",
-                type: "TEXT",
                 maxLength: 200,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "DescriptionZh",
                 table: "Recipes",
-                type: "TEXT",
                 maxLength: 500,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "IngredientsZh",
                 table: "Recipes",
-                type: "TEXT",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "InstructionsZh",
                 table: "Recipes",
-                type: "TEXT",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "CategoryZh",
                 table: "Recipes",
-                type: "TEXT",
                 maxLength: 100,
                 nullable: true);
         }
