@@ -131,7 +131,117 @@ public class LocalizationService : ILocalizationService
                 ["min"] = "分钟",
                 ["servings"] = "份",
             },
-            ["en"] = new Dictionary<string, string>() // English uses keys as values
+            ["en"] = new Dictionary<string, string>
+            {
+                // Navigation
+                ["RecipeBook"] = "Recipe Book",
+                ["Home"] = "Home",
+                ["Recipes"] = "Recipes",
+                ["Privacy"] = "Privacy",
+                ["EditMode"] = "Edit Mode",
+                ["ExitEditMode"] = "Exit Edit Mode",
+                
+                // Home page
+                ["WelcomeTitle"] = "Welcome to Recipe Book",
+                ["WelcomeDescription"] = "Discover, save, and share delicious recipes. From quick weeknight dinners to impressive party dishes, find your next culinary adventure here.",
+                ["BrowseRecipes"] = "Browse Recipes",
+                ["AddRecipe"] = "Add Recipe",
+                
+                // Features
+                ["EasyToFind"] = "Easy to Find",
+                ["EasyToFindDesc"] = "Search and filter recipes by category, ingredients, or cooking time to find exactly what you're looking for.",
+                ["QuickSimple"] = "Quick & Simple",
+                ["QuickSimpleDesc"] = "Clear instructions with prep times and serving sizes help you plan your cooking efficiently.",
+                ["PrintFriendly"] = "Print Friendly",
+                ["PrintFriendlyDesc"] = "Print any recipe with a clean, easy-to-read format perfect for use in the kitchen.",
+                ["RecentlyAdded"] = "Recently Added",
+                
+                // Recipe list
+                ["RecipeCollection"] = "Recipe Collection",
+                ["DiscoverRecipes"] = "Discover delicious recipes for every occasion",
+                ["AddNewRecipe"] = "Add New Recipe",
+                ["Search"] = "Search",
+                ["SearchPlaceholder"] = "Search by title or description...",
+                ["Category"] = "Category",
+                ["AllCategories"] = "All Categories",
+                ["Filter"] = "Filter",
+                ["SelectAll"] = "Select All",
+                ["Selected"] = "Selected",
+                ["PrintSelected"] = "Print Selected",
+                ["PrintAll"] = "Print All",
+                ["View"] = "View",
+                ["Edit"] = "Edit",
+                ["Delete"] = "Delete",
+                ["NoRecipesFound"] = "No recipes found.",
+                ["AddFirstRecipe"] = "Add your first recipe!",
+                ["ViewRecipe"] = "View Recipe",
+                
+                // Recipe details
+                ["Minutes"] = "Minutes",
+                ["Servings"] = "Servings",
+                ["PrepTime"] = "Prep Time",
+                ["CookTime"] = "Cook Time",
+                ["TotalTime"] = "Total Time",
+                ["Ingredients"] = "Ingredients",
+                ["Instructions"] = "Instructions",
+                ["Print"] = "Print",
+                ["BackToRecipes"] = "Back to Recipes",
+                ["RecipeNotFound"] = "Recipe not found.",
+                ["VerifiedRecipe"] = "Verified Recipe",
+                
+                // Create/Edit
+                ["CreateRecipe"] = "Create Recipe",
+                ["EditRecipe"] = "Edit Recipe",
+                ["Title"] = "Title",
+                ["Description"] = "Description",
+                ["Cancel"] = "Cancel",
+                ["Save"] = "Save",
+                ["SaveChanges"] = "Save Changes",
+                ["UploadImage"] = "Upload Image",
+                ["UploadNewImage"] = "Upload New Image",
+                ["AllowedFormats"] = "Allowed Formats",
+                ["MaxSize"] = "Max Size",
+                
+                // Delete
+                ["DeleteRecipe"] = "Delete Recipe",
+                ["ConfirmDelete"] = "Are you sure you want to delete this recipe?",
+                ["ThisActionCannotBeUndone"] = "This action cannot be undone.",
+                
+                // Categories (common ones)
+                ["Appetizers"] = "Appetizers",
+                ["Breakfast"] = "Breakfast",
+                ["Lunch"] = "Lunch",
+                ["Dinner"] = "Dinner",
+                ["Desserts"] = "Desserts",
+                ["Soups"] = "Soups",
+                ["Salads"] = "Salads",
+                ["Pasta"] = "Pasta",
+                ["Pizza"] = "Pizza",
+                ["Curry"] = "Curry",
+                ["Seafood"] = "Seafood",
+                ["Vegetarian"] = "Vegetarian",
+                ["Vegan"] = "Vegan",
+                ["MainDishes"] = "Main Dishes",
+                
+                // Tips
+                ["Tips"] = "Tips",
+                ["Tip1"] = "Be specific with ingredient quantities",
+                ["Tip2"] = "Include temperatures and times in instructions",
+                ["Tip3"] = "Use clear numbered steps",
+                ["Tip4"] = "Upload a photo to make your recipe more appealing",
+                ["Tip5"] = "Choose a category to help users find your recipe",
+                
+                // Privacy
+                ["PrivacyPolicy"] = "Privacy Policy",
+                ["PrivacyContent"] = "This website is for sharing recipes. We do not collect personal data.",
+                
+                // Footer
+                ["Copyright"] = "Copyright",
+                
+                // Misc
+                ["min"] = "min",
+                ["servings"] = "servings",
+            }
         };
     }
 
