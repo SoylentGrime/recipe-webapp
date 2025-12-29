@@ -97,11 +97,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddRazorPages(options =>
-{
-    // Require authentication for Create, Edit, Delete pages
-    options.Conventions.AuthorizeFolder("/Recipes/Admin");
-});
+builder.Services.AddRazorPages();
 
 builder.Services.AddAuthorization();
 

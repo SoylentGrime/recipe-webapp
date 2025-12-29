@@ -12,14 +12,11 @@
             </h1>
             <p class="lead text-muted">Discover delicious recipes for every occasion</p>
         </div>
-        @if (User.IsInRole("Admin"))
-        {
-            <div class="col-auto d-flex align-items-center">
-                <a asp-page="Admin/Create" class="btn btn-success btn-lg">
-                    <i class="bi bi-plus-circle"></i> Add New Recipe
-                </a>
-            </div>
-        }
+        <div class="col-auto d-flex align-items-center edit-mode-only" style="display: none !important;">
+            <a asp-page="Admin/Create" class="btn btn-success btn-lg">
+                <i class="bi bi-plus-circle"></i> Add New Recipe
+            </a>
+        </div>
     </div>
 
     <!-- Search and Filter -->
@@ -129,17 +126,14 @@
                                 <a asp-page="Details" asp-route-id="@recipe.Id" class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-eye"></i> View
                                 </a>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <div>
-                                        <a asp-page="Admin/Edit" asp-route-id="@recipe.Id" class="btn btn-outline-secondary btn-sm">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a asp-page="Admin/Delete" asp-route-id="@recipe.Id" class="btn btn-outline-danger btn-sm">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
-                                }
+                                <div class="edit-mode-only" style="display: none !important;">
+                                    <a asp-page="Admin/Edit" asp-route-id="@recipe.Id" class="btn btn-outline-secondary btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-page="Admin/Delete" asp-route-id="@recipe.Id" class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,10 +145,7 @@
     {
         <div class="alert alert-info">
             <i class="bi bi-info-circle"></i> No recipes found. 
-            @if (User.IsInRole("Admin"))
-            {
-                <a asp-page="Admin/Create">Add the first recipe!</a>
-            }
+            <a asp-page="Admin/Create" class="edit-mode-only" style="display: none;">Add the first recipe!</a>
         </div>
     }
 </div>
@@ -257,5 +248,13 @@
                 }
             });
         });
+        
+        // Show edit mode elements if edit mode is enabled
+        if (localStorage.getItem('editMode') === 'true') {
+            document.querySelectorAll('.edit-mode-only').forEach(el => {
+                el.style.display = '';
+                el.style.removeProperty('display');
+            });
+        }
     });
 </script>

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RecipeApp.Models;
@@ -7,7 +6,6 @@ using Recipe_Webpage.Services;
 
 namespace Recipe_Webpage.Pages.Recipes.Admin;
 
-[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _context;

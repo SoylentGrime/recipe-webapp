@@ -41,17 +41,14 @@ else
                                     <span class="badge bg-info fs-6">@Model.Recipe.Category</span>
                                 }
                             </div>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <div class="btn-group">
-                                    <a asp-page="Admin/Edit" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-primary">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </a>
-                                    <a asp-page="Admin/Delete" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-danger">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </a>
-                                </div>
-                            }
+                            <div class="btn-group edit-mode-only" style="display: none;">
+                                <a asp-page="Admin/Edit" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-primary">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a asp-page="Admin/Delete" asp-route-id="@Model.Recipe.Id" class="btn btn-outline-danger">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </div>
                         </div>
 
                         @if (!string.IsNullOrEmpty(Model.Recipe.Description))
@@ -158,4 +155,12 @@ else
             }
         }
     </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('editMode') === 'true') {
+                document.querySelectorAll('.edit-mode-only').forEach(el => el.style.display = '');
+            }
+        });
+    </script>
 }
